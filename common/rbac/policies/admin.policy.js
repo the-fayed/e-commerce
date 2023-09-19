@@ -1,0 +1,82 @@
+const {
+  CREATE_CATEGORY,
+  UPDATE_CATEGORY,
+  DELETE_CATEGORY,
+  GET_ALL_CATEGORIES,
+  GET_SPECIFIC_CATEGORY,
+} = require("../../../src/categories/endpoints");
+
+const {
+  CREATE_SUBCATEGORY,
+  UPDATE_SUBCATEGORY,
+  DELETE_SUBCATEGORY,
+  GET_ALL_SUBCATEGORIES,
+  GET_SPECIFIC_SUBCATEGORY,
+} = require("../../../src/subcategories/endpoints");
+
+const {
+  CREATE_BRAND,
+  UPDATE_BRAND,
+  DELETE_BRAND,
+  GET_ALL_BRANDS,
+  GET_SPECIFIC_BRAND,
+} = require("../../../src/brands/endpoints");
+
+const {
+  CREATE_USER,
+  UPDATE_USER,
+  DELETE_USER,
+  GET_ALL_USERS,
+  GET_SPECIFIC_USER,
+  GET_LOGGED_USER,
+  UPDATE_LOGGED_USER,
+  DELETE_LOGGED_USER,
+} = require("../../../src/users/endpoints");
+
+const { DELETE_REVIEW } = require("../../../src/reviews/endpoints");
+
+const {
+  CREATE_NEW_COUPON,
+  DELETE_COUPON,
+  UPDATE_COUPON,
+  GET_ALL_COUPONS,
+  GET_SPECIFIC_COUPON,
+} = require("../../../src/coupons/endpoints");
+const { GET_ORDERS, UPDATE_ORDER } = require("../../../src/orders/endpoints");
+
+const { CONFIG_APP_SETTING } = require("../../../src/appSetting/endpoints");
+
+module.exports = [
+  CREATE_CATEGORY,
+  UPDATE_CATEGORY,
+  DELETE_CATEGORY,
+  GET_ALL_CATEGORIES,
+  GET_SPECIFIC_CATEGORY,
+  CREATE_SUBCATEGORY,
+  UPDATE_SUBCATEGORY,
+  DELETE_SUBCATEGORY,
+  GET_ALL_SUBCATEGORIES,
+  GET_SPECIFIC_SUBCATEGORY,
+  CREATE_BRAND,
+  UPDATE_BRAND,
+  DELETE_BRAND,
+  GET_ALL_BRANDS,
+  GET_SPECIFIC_BRAND,
+  CREATE_USER,
+  UPDATE_USER,
+  DELETE_USER,
+  GET_ALL_USERS,
+  GET_SPECIFIC_USER,
+  GET_LOGGED_USER,
+  UPDATE_LOGGED_USER,
+  DELETE_LOGGED_USER,
+  DELETE_REVIEW,
+  CREATE_NEW_COUPON,
+  DELETE_COUPON,
+  UPDATE_COUPON,
+  GET_ALL_COUPONS,
+  GET_SPECIFIC_COUPON,
+  GET_ORDERS,
+  UPDATE_ORDER,
+  CONFIG_APP_SETTING,
+];

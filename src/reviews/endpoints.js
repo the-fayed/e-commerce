@@ -1,0 +1,9 @@
+const CREATE_REVIEW = "review:CREATE_REVIEW";
+const UPDATE_REVIEW = "review:UPDATE_REVIEW";
+const DELETE_REVIEW = "review:DELETE_REVIEW";
+
+module.exports = {
+  CREATE_REVIEW,
+  UPDATE_REVIEW,
+  DELETE_REVIEW,
+};
