@@ -28,7 +28,7 @@
 - User can sign up, after that a verification email will be sent to his inbox to verify his email, then he can login to the system.
 - A new Admin can be added only by another admin.
 
-1. Authorization:
+2. Authorization:
 
 - Admin:
 
@@ -46,11 +46,11 @@
   - Can do either cash or online order.
   - Can add an only one review for each product.
 
-1. Online payment gateway
+3. Online payment gateway
 
 ## Installing
 
-1. First, clone a fresh copy:
+First, clone a fresh copy:
 
 ```Bash
 
@@ -58,9 +58,9 @@ git clone https://github.com/the-fayed/e-commerce.git
 
 ```
 
-1. Then, you need to run `npm install` to install app dependencies.
+Then, you need to run `npm install` to install app dependencies.
 
-1. finally, you need to set up the environment variables:
+Finally, you need to set up the environment variables:
 
 ``` env
 # DB
