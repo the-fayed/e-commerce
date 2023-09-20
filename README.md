@@ -95,7 +95,7 @@ STRIPE_WEBHOOK_KEY: webhook secret key
 
 - Allowed to: only admins.
 - Type: form data.
-Request body example:
+- Request body example:
 
 | Key | Value |
 |----:|-------|
@@ -119,7 +119,7 @@ Response body example:
 }
 ```
 
-1. Get all categories `GET /api/v1/categories`
+2. Get all categories `GET /api/v1/categories`
 
 - Open endpoint.
 - No authentication required for this API call.
@@ -127,7 +127,7 @@ Response body example:
 - API support field limiting by adding which fields to return in request query ex. `/categories?fields=name,image`.
 - API support search by adding search key word to request query ex. `/categories?keyword=category`.
 - API support sorting by adding sort method to request query ex. `/categories?sort=name`.
-Response body example:
+- Response body example:
 
 ```json
 {
@@ -176,11 +176,11 @@ Response body example:
 }
 ```
 
-1. Get specific category: `GET /api/v1/categories/:id`
+3. Get specific category: `GET /api/v1/categories/:id`
 
 - Open endpoint.
 - No authentication required for this API call.
-Response body example:
+- Response body example:
 
 ```JSON
 {
@@ -197,11 +197,11 @@ Response body example:
 }
 ```
 
-1. Update specific category: `PUT /api/v1/categories/:id`
+4. Update specific category: `PUT /api/v1/categories/:id`
 
 - Allowed to: only admins.
 - Type: form data.
-Request body example:
+- Request body example:
 
 | Key | Value |
 |----:|-------|
@@ -225,7 +225,7 @@ Response body example:
 }
 ```
 
-1. Delete specific category: `DELETE /api/v1/categories/:id`
+5. Delete specific category: `DELETE /api/v1/categories/:id`
 
 - Allowed to: only admins.
 
@@ -240,7 +240,7 @@ Request body example:
 
 ```JSON
 {
-    "name": "new subcategory"
+  "name": "new subcategory"
 }
 ```
 
@@ -262,7 +262,7 @@ Response body example:
 }
 ```
 
-1. Get all subcategories: `GET /api/v1/category/:categoryId/subcategories`
+2. Get all subcategories: `GET /api/v1/category/:categoryId/subcategories`
 
 - Open endpoint.
 - No authentication required for this API call.
@@ -270,7 +270,7 @@ Response body example:
 - API support field limiting by adding which fields to return in request query ex. `/subcategory?fields=name,image`.
 - API support search by adding search key word to request query ex. `/subcategory?keyword=subcategory`.
 - API support sorting by adding sort method to request query ex. `/subcategory?sort=name`.
-Response body example:
+- Response body example:
 
 ```json
 {
