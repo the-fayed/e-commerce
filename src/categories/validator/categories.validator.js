@@ -1,8 +1,8 @@
-const Category = require(`../model/categories.model`);
-
 const { check } = require(`express-validator`);
-const validationMiddleware = require(`../../../common/middleware/validator.middleware`);
 const slugify = require('slugify');
+
+const validationMiddleware = require(`../../../common/middleware/validator.middleware`);
+const Category = require(`../model/categories.model`);
 
 exports.createCategoryValidator = [
   check(`name`)

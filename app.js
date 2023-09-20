@@ -25,8 +25,8 @@ app.options("*", cors());
 app.use(compression());
 
 // @desc    Stripe webhook configuration
-const orderController = require('./src/orders/controller/order.controller');
-app.post('/checkout-webhook', express.raw({type: 'application/json'}), orderController.checkoutWebhookHandler);
+const checkoutWebhookHandler = require("./src/orders/controller/order.controller").checkoutWebhookHandler;
+app.post("/checkout-webhook", express.raw({ type: "application/json" }), checkoutWebhookHandler);
 
 // public middleware
 app.use(express.json());

@@ -23,365 +23,302 @@
 
 ## Key feature
 
+1. Authentication:
+
+- User can sign up, after that a verification email will be sent to his inbox to verify his email, then he can login to the system.
+- A new Admin can be added only by another admin.
+
+1. Authorization:
+
+- Admin:
+
+  - Can add, modify and delete categories, subcategories, brands, products and coupons.
+  - Can add, modify and delete either users or admins.
+  - Can add, modify and delete app setting _like tax price and shipment price_.
+  - Can delete offensive user's reviews.
+  - Can modify order status _like if the order has been delivered, and if the order has been paid if it was a cash order_.
+
+- User:
+
+  - Can modify his own data _like addresses, email or phone number_.
+  - Can add products to his wishlist.
+  - Can add items to his cart.
+  - Can do either cash or online order.
+  - Can add an only one review for each product.
+
+1. Online payment gateway
+
 ## Installing
 
-First, clone a fresh copy:
-```$ git clone https://github.com/the-fayed/e-commerce.git```
+1. First, clone a fresh copy:
 
-Then, you need to run `npm install` to install app dependencies.
+```Bash
 
-## Schemas
+git clone https://github.com/the-fayed/e-commerce.git
 
-### Category schema
+```
 
-```javascript
+1. Then, you need to run `npm install` to install app dependencies.
+
+1. finally, you need to set up the environment variables:
+
+``` env
+# DB
+DB_CONNECTION_STRING: either a local or atlas mongodb connection
+
+# APP SETTINGS
+NODE_ENV: either development or production
+PORT: listen port for the app
+BASE_URL: app baseurl
+
+# JWT
+SECRET_KEY: create a JWT secret key at lest 32 character.
+EXPIRATION_PERIOD: how long the JWT user access token will be valid
+
+# NODEMAILER
+EMAIL_HOST: ex. smtp.gmail.com
+EMAIL_PORT: ex. 587 and the secure option will set as false
+EMAIL_USER: sender email
+EMAIL_PASSWORD: sender password
+
+# STRIPE SETTINGS
+STRIPE_API_KEY: strip secret api key, and the public key will be sent to the front-end developer
+STRIPE_WEBHOOK_KEY: webhook secret key
+
+```
+
+## APIs
+
+### categories APIs
+
+1. Create new category `POST /api/v1/category`
+
+- Allowed to: only admins.
+- Type: form data.
+Request body example:
+
+| Key | Value |
+|----:|-------|
+|name | Category name |
+|image| Category image|
+
+Response body example:
+
+```JSON
 {
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-    minlength: [3, `Too short category name`],
-    maxlength: [32, `Too long category name`],
-  },
-  slug: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true,
-  },
-  image: {
-    type: String,
+  "status": "success",
+  "data": {
+      "name": "new category",
+      "slug": "new-category",
+      "image": "https://host.domain/categories/category-1695220377744.jpeg",
+      "_id": "650b02996dde3fe0155a2f5a",
+      "createdAt": "2023-09-20T14:32:57.852Z",
+      "updatedAt": "2023-09-20T14:32:57.852Z",
+      "__v": 0
   }
 }
 ```
 
-### Subcategory schema
+1. Get all categories `GET /api/v1/categories`
 
-```Javascript
+- Open endpoint.
+- No authentication required for this API call.
+- API support pagination by adding page and size to request quey `/categories?page=1&size=20`.
+- API support field limiting by adding which fields to return in request query ex. `/categories?fields=name,image`.
+- API support search by adding search key word to request query ex. `/categories?keyword=category`.
+- API support sorting by adding sort method to request query ex. `/categories?sort=name`.
+Response body example:
+
+```json
 {
-  name: {
-     type: String,
-     required: true,
-     minlength: [2, `Too short subcategory name`],
-    maxlength: [32, `Too long subcategory name`],
-     unique: true,
-  },
-  slug: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true,
-  },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: `category`,
-    required: true,
-  },
+  "status": "success",
+  "page": 1,
+  "numberOfPages": 1,
+  "results": 4,
+  "data": [
+      {
+        "_id": "650b02996dde3fe0155a2f5a",
+        "name": "new category",
+        "slug": "new-category",
+        "image": "https://host.domain/categories/category-1695220377744.jpeg"
+        "createdAt": "2023-09-20T14:32:57.852Z",
+        "updatedAt": "2023-09-20T14:32:57.852Z",
+        "__v": 0
+      },
+      {
+        "_id": "650b02996dde3fe0155a2f5a",
+        "name": "new category",
+        "slug": "new-category",
+        "image": "https://host.domain/categories/category-1693998837911.jpeg"
+        "createdAt": "2023-09-20T14:32:57.852Z",
+        "updatedAt": "2023-09-20T14:32:57.852Z",
+        "__v": 0
+      },
+      {
+        "_id": "650b02996dde3fe0155a2f5a",
+        "name": "new category",
+        "slug": "new-category",
+        "image": "https://host.domain/categories/category-1693939557425.jpeg"
+        "createdAt": "2023-09-20T14:32:57.852Z",
+        "updatedAt": "2023-09-20T14:32:57.852Z",
+        "__v": 0
+      },
+      {
+        "_id": "650b02996dde3fe0155a2f5a",
+        "name": "new category",
+        "slug": "new-category",
+        "image": "https://host.domain/categories/category-1693855905828.jpeg"
+        "createdAt": "2023-09-20T14:32:57.852Z",
+        "updatedAt": "2023-09-20T14:32:57.852Z",
+        "__v": 0
+      }
+  ]
 }
-
 ```
 
-### Brand schema
+1. Get specific category: `GET /api/v1/categories/:id`
 
-```JavaScript
+- Open endpoint.
+- No authentication required for this API call.
+Response body example:
+
+```JSON
 {
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-    minlength: [2, `Too short brand name`],
-    maxlength: [32, `Too long brand name`],
-  },
-  slug: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true
-  },
-  image: {
-    type: String,
+  "status": "success",
+  "data": {
+      "_id": "650b02996dde3fe0155a2f5a",
+      "name": "new category",
+      "slug": "new-category",
+      "image": "https://host.domain/categories/category-1695220377744.jpeg",
+      "createdAt": "2023-09-20T14:32:57.852Z",
+      "updatedAt": "2023-09-20T14:32:57.852Z",
+      "__v": 0
   }
 }
-``
-`
-### Product schema
+```
 
-```Javascript
+1. Update specific category: `PUT /api/v1/categories/:id`
+
+- Allowed to: only admins.
+- Type: form data.
+Request body example:
+
+| Key | Value |
+|----:|-------|
+|name | Category name |
+|image| Category image|
+
+Response body example:
+
+```JSON
 {
-  title: {
-    type: String,
-    required: true,
-    minlength: [2, `Too short product name`],
-    maxlength: [100, `Too long product name`],
-    unique: [true, `Product name must be unique`],
-  },
-  slug: {
-    type: String,
-    required: true,
-    minlength: [2, `Too short product slug`],
-    maxlength: [100, `Too long product slug`],
-    unique: true,
-    lowercase: true,
-  },
-  description: {
-    type: String,
-    required: true,
-    minlength: [2, `Too short product description`],
-    maxlength: [2000, `Too long product description`],
-  },
-  price: {
-    type: Number,
-    required: true,
-    min: [0, `Price cannot be negative`],
-    maxlength: [2000, `Too long product price`],
-  },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: `category`,
-    required: true,
-  },
-  subcategories: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: `subcategory`,
-    },
-  ],
-  brand: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: `brand`,
-  },
-  images: [String],
-  cover: {
-    type: String,
-    required: true,
-  },
-  quantity: {
-    type: Number,
-    required: true,
-  },
-  sold: {
-    type: Number,
-    default: 0,
-  },
-  priceAfterDiscount: {
-    type: Number,
-  },
-  colors: [
-    {
-      type: String,
-    },
-   ],
-  sizes: [
-    {
-      type: String
-    }
-  ],
-  ratingsAverage: {
-    type: Number,
-    min: 1,
-    max: 5,
-  },
-  ratingsQuantity: {
-    type: Number,
-    default: 0,
-  },
+  "status": "success",
+  "data": {
+      "name": "updated category",
+      "slug": "updated-category",
+      "image": "https://host.domain/categories/category-1695220377744.jpeg",
+      "_id": "650b02996dde3fe0155a2f5a",
+      "createdAt": "2023-09-20T14:32:57.852Z",
+      "updatedAt": "2023-09-20T14:32:57.852Z",
+      "__v": 0
+  }
 }
 ```
 
-### User schema
+1. Delete specific category: `DELETE /api/v1/categories/:id`
 
-```Javascript
+- Allowed to: only admins.
+
+### Subcategories APIs
+
+Nested routes from category routes
+
+1. Create new subcategory: `POST /api/v1/categories/:categoryId/subcategories`
+
+- Allowed to: only admins
+Request body example:
+
+```JSON
 {
-  name: {
-    type: String,
-    required: [true, `name is required`],
-    trim: true,
-  },
-  slug: {
-    type: String,
-    lowercase: true,
-  },
-  email: {
-    type: String,
-    required: [true, `email is required`],
-    lowercase: true,
-    unique: true,
-    trim: true,
-  },
-  phone: {
-    type: String,
-  },
-  avatar: {
-    type: String,
-  },
-  password: {
-    type: String,
-    required: [true, `password is required`],
-    minlength: [8, `Too short password`],
-  },
-  wishlist: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "product",
-    },
-  ],
-  addresses: [
-    {
-      id: mongoose.Schema.Types.ObjectId,
-      alias: String,
-      details: String,
-      phone: String,
-      city: String,
-      postalCode: String,
-    },
-  ],
-  passwordChangedAt: Date,
-  resetPasswordCode: String,
-  resetPasswordExpire: Date,
-  resetCodeVerified: Boolean,
-  role: {
-    type: String,
-    eunm: [`admin`, `user`],
-    default: `user`,
-  },
-  emailVerified: {
-    type: Boolean,
-    default: false,
-  },
-  verifyEmailToken: String,
+    "name": "new subcategory"
 }
 ```
 
-### Review schema
+Response body example:
 
-```Javascript
+```JSON
 {
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
-    required: true,
-  },
-  product: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "product",
-    required: true,
-  },
-  tile: {
-    type: String,
-  },
-  rating: {
-    type: Number,
-    min: [1, "Minimum ratings value is 1.0"],
-    max: [5, "Max ratings value is 5.0"],
-    required: true,
-  },
+  "status": "success",
+  "data": {
+      "name": "new subcategory",
+      "slug": "new-subcategory",
+      "category": "650b02996dde3fe0155a2f5a"
+      "image": "https://host.domain/subcategories/subcategory-1695220377744.jpeg",
+      "_id": "650b02996dde3fe0155a2f5a",
+      "createdAt": "2023-09-20T14:32:57.852Z",
+      "updatedAt": "2023-09-20T14:32:57.852Z",
+      "__v": 0
+  }
 }
 ```
 
-### Coupon schema
+1. Get all subcategories: `GET /api/v1/category/:categoryId/subcategories`
 
-```Javascript
+- Open endpoint.
+- No authentication required for this API call.
+- API support pagination by adding page and size to request quey `/subcategory?page=1&size=20`.
+- API support field limiting by adding which fields to return in request query ex. `/subcategory?fields=name,image`.
+- API support search by adding search key word to request query ex. `/subcategory?keyword=subcategory`.
+- API support sorting by adding sort method to request query ex. `/subcategory?sort=name`.
+Response body example:
+
+```json
 {
-  name: {
-    type: String,
-    required: [true, "Coupon name is required"],
-    trim: true,
-  },
-  expire: {
-    type: Date,
-    required: [true, "Coupon expire date is required"],
-  },
-  discount: {
-    type: Number,
-    required: [true, "Coupon discount is required"],
-  },
-}
-```
-
-### Cart schema
-
-```Javascript
-{
-  items: [
-    {
-      product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "product",
-        required: [true, "product id is required"],
+  "status": "success",
+  "page": 1,
+  "numberOfPages": 1,
+  "results": 4,
+  "data": [
+      {
+        "_id": "650b02996dde3fe0155a2f5a",
+        "name": "new subcategory",
+        "slug": "new-subcategory",
+        "category": "650b02996dde3fe0155a2f5a"
+        "image": "https://host.domain/categories/subcategory-1695220377744.jpeg"
+        "createdAt": "2023-09-20T14:32:57.852Z",
+        "updatedAt": "2023-09-20T14:32:57.852Z",
+        "__v": 0
       },
-      quantity: {
-        type: Number,
-        default: 1,
+      {
+        "_id": "650b02996dde3fe0155a2f5a",
+        "name": "new subcategory",
+        "slug": "new-subcategory",
+        "category": "650b02996dde3fe0155a2f5a"
+        "image": "https://host.domain/categories/subcategory-1693998837911.jpeg"
+        "createdAt": "2023-09-20T14:32:57.852Z",
+        "updatedAt": "2023-09-20T14:32:57.852Z",
+        "__v": 0
       },
-      color: String,
-      size: String,
-      price: Number,
-    },
-  ],
-  totalPrice: Number,
-  totalPriceAfterDiscount: Number,
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
-    required: [true, "User id is required"],
-  },
-}
-```
-
-### Order schema
-
-```Javascript
-{
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
-    required: [true, "user id is required"],
-  },
-  items: [
-    {
-      product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "product",
-        required: [true, "product id is required"],
+      {
+        "_id": "650b02996dde3fe0155a2f5a",
+        "name": "new subcategory",
+        "slug": "new-subcategory",
+        "category": "650b02996dde3fe0155a2f5a"
+        "image": "https://host.domain/categories/subcategory-1693939557425.jpeg"
+        "createdAt": "2023-09-20T14:32:57.852Z",
+        "updatedAt": "2023-09-20T14:32:57.852Z",
+        "__v": 0
       },
-      quantity: {
-        type: Number,
-        default: 1,
-      },
-      color: String,
-      size: String,
-      price: Number,
-    },
-  ],
-  taxPrice: {
-    type: Number,
-    default: 0,
-  },
-  shipmentPrice: {
-    type: Number,
-    default: 0,
-  },
-  shippingAddress: {
-    details: String,
-    phone: String,
-    city: String,
-    postalCode: String
-  },
-  totalPrice: Number,
-  paymentMethod: {
-    type: String,
-    enum: ["online", "cash"],
-    default: "cash",
-  },
-  isPaid: {
-    type: Boolean,
-    default: false,
-  },
-  paidAt: Date,
-  isDelivered: {
-    type: Boolean,
-    default: false,
-  },
-  deliveredAt: Date,
+      {
+        "_id": "650b02996dde3fe0155a2f5a",
+        "name": "new subcategory",
+        "slug": "new-subcategory",
+        "category": "650b02996dde3fe0155a2f5a"
+        "image": "https://host.domain/categories/subcategory-1693855905828.jpeg"
+        "createdAt": "2023-09-20T14:32:57.852Z",
+        "updatedAt": "2023-09-20T14:32:57.852Z",
+        "__v": 0
+      }
+  ]
 }
 ```

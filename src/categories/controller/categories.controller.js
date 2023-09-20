@@ -9,21 +9,21 @@ const factory = require("../../../common/services/code.factor");
 exports.getAllCategoriesHandler = factory.findAllService(Category);
 
 // @desc   Get single category
-// @route  GET /api/v1/category/:id
+// @route  GET /api/v1/categories/:id
 // @access Public
 exports.getSpecificCategoryHandler = factory.findOneService(Category);
 
 // @desc   Create new category
-// @route  POST /api/v1/category
+// @route  POST /api/v1/categories
 // @access Privet (Admin)
 exports.createCategoryHandler = factory.createService(Category);
 
 // @desc   Update category
-// @route  PUT /api/v1/category/:id
+// @route  PUT /api/v1/categories/:id
 // @access Privet (Admin)
 exports.updateCategoryHandler = factory.updateService(Category);
 
 // @desc   Delete category
-// @route  DELETE /api/v1/category/:id
+// @route  DELETE /api/v1/categories/:id
 // @access Privet (Admin)
 exports.deleteCategoryHandler = factory.deleteService(Category);
