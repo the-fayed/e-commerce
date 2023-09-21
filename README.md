@@ -1130,6 +1130,7 @@ GET /api/v1/products/:id
 Response body example: 
 
 ```JSON
+{
   "status": "success",
   "data": {
       "name": "new product",
