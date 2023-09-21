@@ -23,20 +23,20 @@
 ![Static Badge](https://img.shields.io/badge/13.6.0-stripe-blue)
 
 ## Tabel of content
-- <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#key-feature">Key feature</a>
-- <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#installation">Installation</a>
-- <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#schemas">Schemas</a>
-    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#category-schema">Category schema</a>
-    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#subcategory-schema">Subcategory schema</a>
-    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#brand-schema">Brand schema</a>
-    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#product-schema">Product schema</a>
-    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#user-schema">User shema</a>
-    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#cart-schema">Cart schema</a>
-    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#review-schema">Review schema</a>
-    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#coupon-schema">Coupon schema</a>
-    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#order-schema">Order schema</a>
-    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#app-settings-schema">App settings schema</a>
-- <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#endpoints">Endpoints</a>
+- <a href= "https://github.com/the-fayed/e-commerce/master/README.md#key-feature">Key feature</a>
+- <a href= "https://github.com/the-fayed/e-commerce/master/README.md#installation">Installation</a>
+- <a href= "https://github.com/the-fayed/e-commerce/master/README.md#schemas">Schemas</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/master/README.md#category-schema">Category schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/master/README.md#subcategory-schema">Subcategory schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/master/README.md#brand-schema">Brand schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/master/README.md#product-schema">Product schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/master/README.md#user-schema">User shema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/master/README.md#cart-schema">Cart schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/master/README.md#review-schema">Review schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/master/README.md#coupon-schema">Coupon schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/master/README.md#order-schema">Order schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/master/README.md#app-settings-schema">App settings schema</a>
+- <a href= "https://github.com/the-fayed/e-commerce/master/README.md#endpoints">Endpoints</a>
 
 ## Key feature
 
