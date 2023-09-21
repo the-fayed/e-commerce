@@ -7,10 +7,11 @@
 ![Static Badge](https://img.shields.io/badge/7.4.0-mongoose-green)
 ![Static Badge](https://img.shields.io/badge/3.0.1-nodemon-red)
 ![Static Badge](https://img.shields.io/badge/2.8.5-cors-red)
-![Static Badge](https://img.shields.io/badge/1.20.2-body--parser-red)
+![Static Badge](https://img.shields.io/badge/1.7.4-compression-red)
 ![Static Badge](https://img.shields.io/badge/16.3.1-dotenv-red)
 ![Static Badge](https://img.shields.io/badge/2.2.0-http--status--codes-red)
-![Static Badge](https://img.shields.io/badge/17.9.2-joi-red)
+![Static Badge](https://img.shields.io/badge/7.0.1-express--validator-red)
+![Static Badge](https://img.shields.io/badge/1.2.0-express--async--handler-red)
 ![Static Badge](https://img.shields.io/badge/5.1.0-bcrypt-red)
 ![Static Badge](https://img.shields.io/badge/9.0.1-jsonwebtoken-red)
 ![Static Badge](https://img.shields.io/badge/3.2.0-easy--rbac-red)
@@ -20,6 +21,22 @@
 ![Static Badge](https://img.shields.io/badge/0.32.5-sharp-red)
 ![Static Badge](https://img.shields.io/badge/8.48.0-eslint-8A2BE2)
 ![Static Badge](https://img.shields.io/badge/13.6.0-stripe-blue)
+
+## Tabel of content
+- <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#key-feature">Key feature</a>
+- <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#installation">Installation</a>
+- <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#schemas">Schemas</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#category-schema">Category schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#subcategory-schema">Subcategory schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#brand-schema">Brand schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#product-schema">Product schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#user-schema">User shema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#cart-schema">Cart schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#review-schema">Review schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#coupon-schema">Coupon schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#order-schema">Order schema</a>
+    - <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#app-settings-schema">App settings schema</a>
+- <a href= "https://github.com/the-fayed/e-commerce/edit/master/README.md#endpoints">Endpoints</a>
 
 ## Key feature
 
@@ -87,11 +104,388 @@ STRIPE_WEBHOOK_KEY: webhook secret key
 
 ```
 
-## APIs
+## Schemas
 
-### categories APIs
+### Category Schema
+
+```Javascript
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+      minlength: [3, `Too short category name`],
+      maxlength: [32, `Too long category name`],
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+    },
+    image: {
+      type: String,
+    },
+  }
+```
+
+### Subcategory schema
+
+```Javascript
+  {
+    name: {
+      type: String,
+      required: true,
+      minlength: [2, `Too short subcategory name`],
+      maxlength: [32, `Too long subcategory name`],
+      unique: true,
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: `category`,
+      required: true,
+    },
+  }
+```
+
+### Brand schema
+
+```Javascirpt
+{
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+    minlength: [2, `Too short brand name`],
+    maxlength: [32, `Too long brand name`],
+  },
+  slug: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true
+  },
+  image: {
+    type: String,
+  }
+}
+```
+### Product schema
+
+```Javascript
+  {
+    title: {
+      type: String,
+      required: true,
+      minlength: [2, `Too short product name`],
+      maxlength: [100, `Too long product name`],
+      unique: [true, `Product name must be unique`],
+    },
+    slug: {
+      type: String,
+      required: true,
+      minlength: [2, `Too short product slug`],
+      maxlength: [100, `Too long product slug`],
+      unique: true,
+      lowercase: true,
+    },
+    description: {
+      type: String,
+      required: true,
+      minlength: [2, `Too short product description`],
+      maxlength: [2000, `Too long product description`],
+    },
+    price: {
+      type: Number,
+      required: true,
+      min: [0, `Price cannot be negative`],
+      maxlength: [2000, `Too long product price`],
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: `category`,
+      required: true,
+    },
+    subcategories: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: `subcategory`,
+      },
+    ],
+    brand: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: `brand`,
+    },
+    images: [String],
+    cover: {
+      type: String,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    sold: {
+      type: Number,
+      default: 0,
+    },
+    priceAfterDiscount: {
+      type: Number,
+    },
+    colors: [
+      {
+        type: String,
+      },
+    ],
+    sizes: [
+      {
+        type: String
+      }
+    ],
+    ratingsAverage: {
+      type: Number,
+      min: 1,
+      max: 5,
+    },
+    ratingsQuantity: {
+      type: Number,
+      default: 0,
+    },
+  }
+```
+
+### User schema 
+
+```Javascript
+  {
+    name: {
+      type: String,
+      required: [true, `name is required`],
+      trim: true,
+    },
+    slug: {
+      type: String,
+      lowercase: true,
+    },
+    email: {
+      type: String,
+      required: [true, `email is required`],
+      lowercase: true,
+      unique: true,
+      trim: true,
+    },
+    phone: {
+      type: String,
+    },
+    avatar: {
+      type: String,
+    },
+    password: {
+      type: String,
+      required: [true, `password is required`],
+      minlength: [8, `Too short password`],
+    },
+    wishlist: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "product",
+      },
+    ],
+    addresses: [
+      {
+        id: mongoose.Schema.Types.ObjectId,
+        alias: String,
+        details: String,
+        phone: String,
+        city: String,
+        postalCode: String,
+      },
+    ],
+    passwordChangedAt: Date,
+    resetPasswordCode: String,
+    resetPasswordExpire: Date,
+    resetCodeVerified: Boolean,
+    role: {
+      type: String,
+      eunm: [`admin`, `user`],
+      default: `user`,
+    },
+    emailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    verifyEmailToken: String,
+  }
+```
+
+### Cart schema
+
+```Javascript
+  {
+    items: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "product",
+          required: [true, "product id is required"],
+        },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+        color: String,
+        size: String,
+        price: Number,
+      },
+    ],
+    totalPrice: Number,
+    totalPriceAfterDiscount: Number,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: [true, "User id is required"],
+    },
+  }
+```
+
+### Review schema
+
+```Javascript
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "product",
+      required: true,
+    },
+    tile: {
+      type: String,
+    },
+    rating: {
+      type: Number,
+      min: [1, "Minimum ratings value is 1.0"],
+      max: [5, "Max ratings value is 5.0"],
+      required: true,
+    },
+  }
+```
+_note that after any new review total reviews and average rating for the product reviewed will be change automatically, and any user can review every product one time only._
+
+### Coupon schema
+
+```Javascript
+  {
+    name: {
+      type: String,
+      required: [true, "Coupon name is required"],
+      trim: true,
+    },
+    expire: {
+      type: Date,
+      required: [true, "Coupon expire date is required"],
+    },
+    discount: {
+      type: Number,
+      required: [true, "Coupon discount is required"],
+    },
+  }
+```
+
+### Order schema
+
+```Javascript
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: [true, "user id is required"],
+    },
+    items: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "product",
+          required: [true, "product id is required"],
+        },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+        color: String,
+        size: String,
+        price: Number,
+      },
+    ],
+    taxPrice: {
+      type: Number,
+      default: 0,
+    },
+    shipmentPrice: {
+      type: Number,
+      default: 0,
+    },
+    shippingAddress: {
+      details: String,
+      phone: String,
+      city: String,
+      postalCode: String
+    },
+    totalPrice: Number,
+    paymentMethod: {
+      type: String,
+      enum: ["online", "cash"],
+      default: "cash",
+    },
+    isPaid: {
+      type: Boolean,
+      default: false,
+    },
+    paidAt: Date,
+    isDelivered: {
+      type: Boolean,
+      default: false,
+    },
+    deliveredAt: Date,
+  }
+```
+_note that after every new order total stock of every product will be decreased automatically by the quantity of it on that order, on the other hand, the total sold of this product will be increased automatically by the quantity of it on that order._
+
+### App settings schema
+
+```Javascript
+  {
+    taxPrice: {
+      type: Number,
+      required: true,
+    },
+    shipmentPrice: {
+      type: Number,
+      required: true,
+    },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+  }
+```
+
+## Endpoints
+
+### categories endpoints
 
 #### Create a new category:
+
   ```bash
 POST /api/v1/category
 ```
@@ -103,7 +497,7 @@ POST /api/v1/category
 
 | Key | Value |
 |----:|-------|
-|name | Category name |
+|name | new category |
 |image| Category image|
 
 Response body example:
@@ -124,16 +518,17 @@ Response body example:
 ```
 
 #### Get all categories:
+
 ```
 GET /api/v1/categories
 ```
 
 - Open endpoint.
-- No authentication is required for this API call.
-- API supports pagination by adding page and size to request query `/categories?page=1&size=20`.
-- API support field limiting by adding which fields to return in request query ex. `/categories?fields=name,image`.
-- API supports search by adding search keywords to request query, e.g. `/categories?keyword=category`.
-- API supports sorting by adding a sort method to request query, e.g. `/categories?sort=name`.
+- No authentication is required for this endpoint call.
+- Endpoint supports pagination by adding page and size to request query `/categories?page=1&size=20`.
+- Endpoint support field limiting by adding which fields to return in request query ex. `/categories?fields=name,image`.
+- Endpoint supports search by adding search keywords to request query, e.g. `/categories?keyword=category`.
+- Endpoint supports sorting by adding a sort method to request query, e.g. `/categories?sort=name`.
 
 Response body example:
 
@@ -190,7 +585,7 @@ GET /api/v1/categories/:id
 ```
 
 - Open endpoint.
-- No authentication is required for this API call.
+- No authentication is required for this endpoint call.
 
  Response body example:
 
@@ -248,7 +643,7 @@ DELETE /api/v1/categories/:id
 
 - Allowed to: only admins.
 
-### Subcategories APIs
+### Subcategories endpoints
 
 Nested routes from category routes
 
@@ -290,11 +685,11 @@ GET /api/v1/category/:categoryId/subcategories
 ```
 
 - Open endpoint.
-- No authentication is required for this API call.
-- API supports pagination by adding page and size to request query `/subcategory?page=1&size=20`.
-- API supports field limiting by adding which fields to return in a request query, e.g. `/subcategory?fields=name,image`.
-- API supports search by adding search keywords to request query, e.g. `/subcategory?keyword=subcategory`.
-- API supports sorting by adding a sort method to request query, e.g. `/subcategory?sort=name`.
+- No authentication is required for this endpoint call.
+- Endpoint supports pagination by adding page and size to request query `/subcategory?page=1&size=20`.
+- Endpoint supports field limiting by adding which fields to return in a request query, e.g. `/subcategory?fields=name,image`.
+- Endpoint supports search by adding search keywords to request query, e.g. `/subcategory?keyword=subcategory`.
+- Endpoint supports sorting by adding a sort method to request query, e.g. `/subcategory?sort=name`.
 
 Response body example:
 
@@ -344,7 +739,7 @@ Response body example:
   ]
 }
 ```
-#### NOTE THAT: to get all subcategories not the subcategories on a specific category the API will be `GET /api/v1/subcategories`.
+ _note that to get all subcategories not the subcategories on a specific category the endpoint will be `GET /api/v1/subcategories`._
 
 #### Get a specific subcategory
 ```
@@ -352,7 +747,7 @@ GET /api/v1/subcategories/:id
 ```
 
 - Open endpoint.
-- No authentication is required for this API call.
+- No authentication is required for this endpoint call.
 
 Response body example: 
 
@@ -407,9 +802,10 @@ DELETE /api/v1/subcategories/:id
 
 - Allowed to: only admins
 
-### Brands APIs
+### Brands endpoints
 
 #### Create a new brand
+
 ```
 POST /api/v1/brands
 ```
@@ -442,16 +838,17 @@ Response body example:
 ```
 
 #### Get all brands:
+
 ```
 GET /api/v1/brands
 ```
 
 - Open endpoint.
-- No authentication is required for this API call.
-- API supports pagination by adding page and size to request query `/brands?page=1&size=20`.
-- API supports field limiting by adding which fields to return in a request query, e.g. `/brands?fields=name,image`.
-- API supports search by adding search keywords to request query, e.g. `/brands?keyword=brands`.
-- API supports sorting by adding a sort method to request query, e.g. `/brands?sort=name`.
+- No authentication is required for this endpoint call.
+- Endpoint supports pagination by adding page and size to request query `/brands?page=1&size=20`.
+- Endpoint supports field limiting by adding which fields to return in a request query, e.g. `/brands?fields=name,image`.
+- Endpoint supports search by adding search keywords to request query, e.g. `/brands?keyword=brands`.
+- Endpoint supports sorting by adding a sort method to request query, e.g. `/brands?sort=name`.
 
 Response body example:
 
@@ -563,4 +960,202 @@ DELETE /api/v1/brands/:id
 
 - Allowed to: only admins
 
-### Products APIs
+### Products endpoints
+
+#### Create a new product 
+
+```
+POST /api/v1/products
+```
+- Allowed to: only admin.
+- Request body type: form-data
+
+Request body example: 
+
+| Key | Value |
+|----:|-------|
+| title | new product |
+| description | new product description |
+| price | 3000 |
+| priceAfterDiscount | 2500 |
+| quantity | 15 |
+| category | 650b02996dde3fe0155a2f5a |
+| subcategories | 650b02996dde3fe0155a2f5a, 650b02996dde3fe0155a2f5b
+| brand | 650b02996dde3fe0155a2f5a |
+| cover | product cover image |
+| images | product image |
+| images | product image |
+
+Response body example: 
+```JSON
+{
+  "status": "success",
+  "data": {
+      "name": "new product",
+      "slug": "new-products",
+      "description": "new product description",
+      "price": 3000,
+      "priceAfterDiscount": 2500,
+      "quantity": 15,
+      "sold": 0,
+      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
+      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
+      "category": "650b02996dde3fe0155a2f5a",
+      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
+      "brand": "650b02996dde3fe0155a2f5a"
+      "ratingQuantity": 0,
+      "ratingAverage": 0
+      "_id": "650b02996dde3fe0155a2f5a",
+      "createdAt": "2023-09-20T14:32:57.852Z",
+      "updatedAt": "2023-09-20T14:32:57.852Z",
+      "__v": 0
+  }
+}
+```
+
+#### Get all products: 
+
+```
+GET /api/v1/products
+```
+
+- Open endpoint.
+- No authentication is required for this endpoint call.
+- Endpoint supports pagination by adding page and size to request query `/products?page=1&size=20`.
+- Endpoint supports field limiting by adding which fields to return in a request query, e.g. `/products?fields=name,image`.
+- Endpoint supports search by adding search keywords to request query, e.g. `/products?keyword=products`.
+- Endpoint supports sorting by adding a sort method to request query, e.g. `/products?sort=name`.
+
+Response body example: 
+```JSON
+{
+  "status": "success",
+  "page": 1,
+  "numberOfPages": 1,
+  "results": 4,
+  "data": [
+ {
+      "name": "new product",
+      "slug": "new-products",
+      "description": "new product description",
+      "price": 3000,
+      "priceAfterDiscount": 2500,
+      "quantity": 15,
+      "sold": 0,
+      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
+      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
+      "category": "650b02996dde3fe0155a2f5a",
+      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
+      "brand": "650b02996dde3fe0155a2f5a"
+      "ratingQuantity": 0,
+      "ratingAverage": 0
+      "_id": "650b02996dde3fe0155a2f5a",
+      "createdAt": "2023-09-20T14:32:57.852Z",
+      "updatedAt": "2023-09-20T14:32:57.852Z",
+      "__v": 0
+  },
+  {
+      "name": "new product",
+      "slug": "new-products",
+      "description": "new product description",
+      "price": 3000,
+      "priceAfterDiscount": 2500,
+      "quantity": 15,
+      "sold": 0,
+      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
+      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
+      "category": "650b02996dde3fe0155a2f5a",
+      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
+      "brand": "650b02996dde3fe0155a2f5a"
+      "ratingQuantity": 0,
+      "ratingAverage": 0
+      "_id": "650b02996dde3fe0155a2f5a",
+      "createdAt": "2023-09-20T14:32:57.852Z",
+      "updatedAt": "2023-09-20T14:32:57.852Z",
+      "__v": 0
+  },
+  {
+      "name": "new product",
+      "slug": "new-products",
+      "description": "new product description",
+      "price": 3000,
+      "priceAfterDiscount": 2500,
+      "quantity": 15,
+      "sold": 0,
+      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
+      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
+      "category": "650b02996dde3fe0155a2f5a",
+      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
+      "brand": "650b02996dde3fe0155a2f5a"
+      "ratingQuantity": 0,
+      "ratingAverage": 0
+      "_id": "650b02996dde3fe0155a2f5a",
+      "createdAt": "2023-09-20T14:32:57.852Z",
+      "updatedAt": "2023-09-20T14:32:57.852Z",
+      "__v": 0
+  },
+  {
+      "name": "new product",
+      "slug": "new-products",
+      "description": "new product description",
+      "price": 3000,
+      "priceAfterDiscount": 2500,
+      "quantity": 15,
+      "sold": 0,
+      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
+      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
+      "category": "650b02996dde3fe0155a2f5a",
+      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
+      "brand": "650b02996dde3fe0155a2f5a"
+      "ratingQuantity": 0,
+      "ratingAverage": 0
+      "_id": "650b02996dde3fe0155a2f5a",
+      "createdAt": "2023-09-20T14:32:57.852Z",
+      "updatedAt": "2023-09-20T14:32:57.852Z",
+      "__v": 0
+  }
+]
+}
+```
+
+#### Get a specific product: 
+
+```
+GET /api/v1/products/:id
+```
+
+- Open endpoint.
+- No authentication is required for this endpoint call.
+
+Response body example: 
+
+```JSON
+  "status": "success",
+  "data": {
+      "name": "new product",
+      "slug": "new-products",
+      "description": "new product description",
+      "price": 3000,
+      "priceAfterDiscount": 2500,
+      "quantity": 15,
+      "sold": 0,
+      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
+      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
+      "category": "650b02996dde3fe0155a2f5a",
+      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
+      "brand": "650b02996dde3fe0155a2f5a"
+      "ratingQuantity": 0,
+      "ratingAverage": 0
+      "_id": "650b02996dde3fe0155a2f5a",
+      "createdAt": "2023-09-20T14:32:57.852Z",
+      "updatedAt": "2023-09-20T14:32:57.852Z",
+      "__v": 0
+  }
+}
+```
+
+#### Update a specific product
+
+```
+PUT /api/v1/products/:id
+```
