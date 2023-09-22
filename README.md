@@ -157,7 +157,7 @@ STRIPE_WEBHOOK_KEY: webhook secret key
 
 ### Brand schema
 
-```Javascirpt
+```Javascript
 {
   name: {
     type: String,
