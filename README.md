@@ -532,7 +532,7 @@ Response body example:
 ```
 POST /api/v1/auth/login
 ```
--Open endpoint.
+- Open endpoint.
 
 Request body example: 
 
@@ -548,7 +548,7 @@ Response body example:
 ```json
 {
     "status": "success",
-    "token":     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZmY0ZDBkZjkzZTA1NThiMDJiZTQ2NyIsImlhdCI6MTY5NTM5Nzc1MCwiZXhwIjoxNzAzMTczNzUwfQ.UwSFauV9ryue_VAmIv5uTFcMju2LuhyKAS-dyM3kuPY",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZmY0ZDBkZjkzZTA1NThiMDJiZTQ2NyIsImlhdCI6MTY5NTM5Nzc1MCwiZXhwIjoxNzAzMTczNzUwfQ.UwSFauV9ryue_VAmIv5uTFcMju2LuhyKAS-dyM3kuPY",
     "data": {
         "wishlist": [],
         "_id": "64ff4d0df93e0558b02be467",
