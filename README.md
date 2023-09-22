@@ -58,6 +58,7 @@ The user can sign up, and after that a verification email will be sent to his in
 - User:
 
   - Can modify his own data _like addresses, email or phone number_.
+  - Can modify his password or reset it. 
   - Can add products to his wishlist.
   - Can add items to his cart.
   - Can do either cash or online orders.
