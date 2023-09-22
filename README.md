@@ -483,11 +483,94 @@ _note that after every new order total stock of every product will be decreased 
 
 ## Endpoints
 
+### Auth endpoints
+
+#### Sign up endpoint
+
+```
+POST /api/v1/auth/signup
+```
+- Open endpoint.
+- Request body type: form-data.
+
+Request body example:
+
+| Key | Value |
+|----:|-------|
+| name | new user |
+| avatar | user image |
+| email | user@email.com |
+| password | new password |
+| passwordConfirmation | new pawword |
+
+Response body example: 
+
+```JSON
+{
+    "status": "success",
+    "message": "A verification email sent to you, please check your email."
+}
+```
+
+#### Verify email endpoint
+
+```
+GET /api/v1/auth/verify/:token
+```
+_note that an email verification will be sent to the user's email address._
+
+Response body example: 
+```JSON
+{
+    "status": "success",
+    "message": "Email verified"
+}
+```
+
+#### Log in endpoint
+
+```
+POST /api/v1/auth/login
+```
+-Open endpoint.
+
+Request body example: 
+
+```json
+{
+    "email": "user@email.com",
+    "password": "new password"
+}
+```
+
+Response body example: 
+
+```json
+{
+    "status": "success",
+    "token":     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZmY0ZDBkZjkzZTA1NThiMDJiZTQ2NyIsImlhdCI6MTY5NTM5Nzc1MCwiZXhwIjoxNzAzMTczNzUwfQ.UwSFauV9ryue_VAmIv5uTFcMju2LuhyKAS-dyM3kuPY",
+    "data": {
+        "wishlist": [],
+        "_id": "64ff4d0df93e0558b02be467",
+        "name": "new user",
+        "slug": "new-user",
+        "email": "user@email.com",
+        "password": "$2b$09$b4xWTNbbSvoIS/mKRFO2H.T9de5lLwUbb8CP2dfvnns6ZtGuamPu2",
+        "role": "user",
+        "emailVerified": true,
+        "createdAt": "2023-09-11T17:23:25.067Z",
+        "updatedAt": "2023-09-11T17:23:25.067Z",
+        "__v": 0,
+        "addresses": []
+    }
+}
+```
+
 ### categories endpoints
 
 #### Create a new category:
 
-  ```bash
+```bash
 POST /api/v1/category
 ```
 
@@ -1161,3 +1244,53 @@ Response body example:
 ```
 PUT /api/v1/products/:id
 ```
+
+- Allowed to: only admins.
+- Request body type: form-data.
+
+Request body example: 
+
+| Key | Value |
+|----:|-------|
+| title | updated product |
+| description | updated product description |
+| price | 3000 |
+| quantity | 20 |
+| category | 650b02996dde3fe0155a2f5a |
+| subcategories | 650b02996dde3fe0155a2f5a, 650b02996dde3fe0155a2f5b
+| brand | 650b02996dde3fe0155a2f5a |
+| cover | product cover image |
+| images | product image |
+| images | product image |
+
+Response body example: 
+```JSON
+{
+  "status": "success",
+  "data": {
+      "name": "updated product",
+      "slug": "updated-products",
+      "description": "updated product description",
+      "price": 3000,
+      "quantity": 20,
+      "sold": 0,
+      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
+      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
+      "category": "650b02996dde3fe0155a2f5a",
+      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
+      "brand": "650b02996dde3fe0155a2f5a"
+      "ratingQuantity": 0,
+      "ratingAverage": 0
+      "_id": "650b02996dde3fe0155a2f5a",
+      "createdAt": "2023-09-20T14:32:57.852Z",
+      "updatedAt": "2023-09-20T14:32:57.852Z",
+      "__v": 0
+  }
+}
+```
+#### Delete a specific product
+
+```
+DELETE /api/v1/products/:id
+```
+- Allowed to: only admins.
