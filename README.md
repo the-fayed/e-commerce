@@ -44,7 +44,82 @@
         - <a href = "https://github.com/the-fayed/e-commerce#fortgot-password-endpoint">Forgot password endpoint</a>
         - <a href = "https://github.com/the-fayed/e-commerce#verify-password-reset-code-endpoint">Verfiy password reset code endpoint</a>
         - <a href = "https://github.com/the-fayed/e-commerce#reset-password-endpoint">Reset password endpoint</a>
-    
+    - <a href = "https://github.com/the-fayed/e-commerce#user-endpoints">User endpoints</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#create-new-user-endpoint">Create new user endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-all-users">Get all user endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-specific-user">Get a specific user endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#update-specific-user">Update a specific user endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#update-specific-user-password">Update a specific user password endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#delete-specific-user">Delete a specific user endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-logged-user-data">Get logged user data endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#updated-logged-user-data">Update logged user data endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#update-logged-user-password">Update logged user password end point</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#delete-logged-user">Delete logged user endpoint</a>
+    - <a href = "https://github.com/the-fayed/e-commerce#categories-endpoints">Categories endpoints</a> 
+        - <a href = "https://github.com/the-fayed/e-commerce#create-a-new-category">Create new category endpoint</a> 
+        - <a href = "https://github.com/the-fayed/e-commerce#get-all-categories">Get all categories endpoint</a> 
+        - <a href = "https://github.com/the-fayed/e-commerce#get-a-specific-category">Get a specific category endpoint</a> 
+        - <a href = "https://github.com/the-fayed/e-commerce#update-specific-category">Update a specific category endpoint</a> 
+        - <a href = "https://github.com/the-fayed/e-commerce#delete-specific-category">Delete a specifc category endpoint</a>
+    - <a href = "https://github.com/the-fayed/e-commerce#subcategories-endpoints">Subcategories endpoints</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#create-a-new-subcategory">Create a new subcategory endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-all-subcategories">Get all subcategories endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-a-specific-subcategory">Get a specific subcategory endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#update-a-specific-subcategory">Update a specific subcategory endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#delete-a-specific-subcategory">Delete a specific subcategory endpoint</a>
+    - <a href = "https://github.com/the-fayed/e-commerce#brands-endpoints">Brands endpoints</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#create-a-new-brand">Create a new brand endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-all-brands">Get all brands endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-a-specific-brand">Get specific brand endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#update-a-specific-brand">Update a specific brand endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#delete-a-specific-brand">Delete a specific brand endpoint</a>
+    - <a href = "https://github.com/the-fayed/e-commerce#products-endpoints">Products endpoinsts</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#create-a-new-product">Create a new product endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-all-products">Get all products endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-a-specific-product">Get a specific prodcut endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#update-a-specific-product">Update a specific product endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#delete-a-specific-product">Delete a specific product endpoint</a>
+    - <a href = "https://github.com/the-fayed/e-commerce#wishlist-endpoints">Wishlist endpoints</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#add-product-to-wishlist">Add product to wishlist endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-logged-user-wishlist">Get logged user wishlist endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#remove-product-from-wishlist">Revmove product from wishlist</a>
+    - <a href = "https://github.com/the-fayed/e-commerce#address-endpoints">Addresses endpoints</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#add-a-new-address-to-the-logged-user">Add new address endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-logged-user-addresses">Get logged user addresses endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#address-from-logged-user-addresses-list">Remove address from logged user addresses</a>
+    - <a href = "https://github.com/the-fayed/e-commerce#cart-endpoints">Cart endpoints</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#add-item-to-cart-endpoint">Add item to cart endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-logged-user-cart-endpoint">Get logged user cart endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#update-specific-item-quantity-endpoint">Update a specific item quantity endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#remove-a-specific-item-from-the-cart">Remove a specific item from cart endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#clear-user-cart">Clear logged user cart endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#apply-coupon-to-the-cart">Apply coupon to cart endpoint</a>
+    - <a href = "https://github.com/the-fayed/e-commerce#coupon-endpoints">Coupons endpoints</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#create-a-new-coupon">Create a new coupon endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-all-coupons">Get all coupons endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-a-specific-coupon">Get a specific coupon endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#update-a-specific-coupon">Update a specific coupon endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#delete-a-specific-coupon">Delete a specific coupon endpoint</a>
+    - <a href = "https://github.com/the-fayed/e-commerce#review-endpoint">Reviews endpoints</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#add-a-new-review">Add a new review endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-all-reviews">Get ll reviews endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-a-specific-review">Get a specific review endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#update-a-specific-review">Update a specific review endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#delete-a-specific-review">Delete a specific review endpoint</a>
+    - <a href = "https://github.com/the-fayed/e-commerce#order-endpoints">Order endpoints</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#create-a-new-cash-order">Create a new cash order endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-all-orders">Get all orders endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-a-specific-order">Get a specific order endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-logged-user-all-orders">Get logged user orders endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-a-specific-order-for-the-logged-user">Get a specific order for the logged user endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#update-order-delivery-status">Update order delivery status endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#update-order-paid-status">Update order paid status endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#create-an-online-paid-order">Create an online paid order endpoint</a>
+    - <a href = "https://github.com/the-fayed/e-commerce#app-settings-endpoints">App settings endpoints</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#add-tax-and-shipment-price">Add tax and shipment prices endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-tax-and-shipment-prices">Get tax and shipment prices endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#update-tax-and-shipment-prices">Update tax and shipment prices endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#delete-tax-and-shipment-prices">Delete tax and shipment prices endpoint</a>
 
 ## Key feature
 
@@ -1302,7 +1377,7 @@ GET /api/v1/orders
 ```
 - Allowed to: users.
 
-#### GET a specific order
+#### GET a specific order for the logged user
 
 ```curl
 GET /api/v1/orders/:id
