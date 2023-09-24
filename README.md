@@ -37,6 +37,14 @@
     - <a href= "https://github.com/the-fayed/e-commerce#order-schema">Order schema</a>
     - <a href= "https://github.com/the-fayed/e-commerce#app-settings-schema">App settings schema</a>
 - <a href= "https://github.com/the-fayed/e-commerce#endpoints">Endpoints</a>
+    - <a href= "https://github.com/the-fayed/e-commerce#auth-endpoints">Auth endpoints</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#sign-up-endpoint">Sign up endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#verify-email-endpoint">Verify email endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#log-in-endpoint">Log in endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#fortgot-password-endpoint">Forgot password endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#verify-password-reset-code-endpoint">Verfiy password reset code endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#reset-password-endpoint">Reset password endpoint</a>
+    
 
 ## Key feature
 
@@ -547,7 +555,7 @@ Request body example:
 }
 ```
 
-#### Verify password reset code password endpoint
+#### Verify password reset code endpoint
 
 ```curl
 POST /api/v1/auth/verifyResetCode
