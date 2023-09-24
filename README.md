@@ -63,8 +63,12 @@ The user can sign up, and after that a verification email will be sent to his in
   - Can add items to his cart.
   - Can do either cash or online orders.
   - Can add only one review for each product.
-
-3. Online payment gateway
+  
+3. User wishlist
+4. User cart
+5. User addresses
+6. Online orders
+7. Cash orders
 
 ## Installation
 
@@ -1030,7 +1034,7 @@ DELETE /api/v1/wishlist/:productId
 
 ### Address endpoints
 
-#### Add new address to logged user
+#### Add a new address to the logged user
 
 ```curl
 POST /api/v1/address
@@ -1064,3 +1068,323 @@ DELETE /api/v1/address/:addressId
 - Allowed to: only users
 
 #### Cart endPoints
+
+#### Add item to cart endpoint
+
+```curl
+POST /api/v1/cart
+```
+
+- Allowed to: only users.
+
+Request body example: 
+
+```json
+{
+    "productId": "650b02996dde3fe0155a2f5a",
+    "color": "red",
+    "size": "XL"
+}
+```
+
+#### Get logged user cart endpoint
+
+```curl
+GET /api/v1/cart
+```
+
+- Allowed to: only users
+
+#### Update specific item quantity endpoint
+
+```curl
+PUT /api/v1/cart/:itemId
+```
+- Allowed to: only users
+
+Request body example: 
+
+```json
+{
+    "quantity": 4
+}
+```
+
+#### Remove a specific item from the cart
+
+```curl
+DELETE /api/v1/cart/:itemId
+```
+- Allowed to: only users
+
+#### Clear user cart
+
+```curl
+DELETE /api/v1/cart
+```
+- Allowed to: only users.
+
+#### Apply coupon to the cart
+
+```curl
+POST /api/v1/cart/applyCoupon
+```
+- Allowed to: only users
+
+Request body example: 
+
+```json
+{
+    "coupon": "name"
+}
+```
+
+
+### Coupon endpoints
+
+#### Create a new coupon
+
+```curl
+POST /api/v1/coupons
+```
+
+- Allowed to: only admins
+
+Request body example: 
+
+```json
+{
+    "name": "HAPPY_MOTHER'S_DAY",
+    "expire": "09/25/2023",
+    "discount": 25
+}
+```
+
+#### Get all coupons
+
+```curl
+GET /api/v1/coupons
+```
+- Allowed to: only admins
+
+#### Update a specific coupon
+
+```curl
+PUT /api/v1/coupons/:id
+```
+- Allowed to: only admins
+
+Request body example: 
+
+```json
+{
+    "name": "HAPPY_MOTHER'S_DAY",
+    "expire": "09/25/2023",
+    "discount": 25
+}
+```
+
+#### Delete a specific coupon 
+
+```curl
+DELETE /api/v1/coupons/:id
+```
+- Allowed to: only admins.
+
+### Review endpoint
+
+_Nasted endpoints from products endpoints._
+
+#### Add a new review
+
+```curl
+POST /api/v1/prodcut/:productId/reviews
+```
+- Allowed to: only users.
+
+Request body example: 
+
+```json
+{
+    "title": "review title",
+    "rating": 4
+}
+```
+
+#### Get all reviews
+
+```curl
+GET /api/v1/prodcut/:productId/reviews
+```
+
+- Open endpoint
+
+#### Get a specific review
+
+```curl
+GET /api/v1/prodcut/:productId/reviews/:id
+```
+- Open endpoint
+
+#### Update a specific review
+
+```curl
+PUT /api/v1/prodcut/:productId/reviews/:id
+```
+
+- Allowed to: Review owner (user)
+
+Request body example:
+
+```json
+{
+    "title": "review title",
+    "rating": 4
+}
+```
+
+#### Delete a specific review
+
+```curl
+DELETE /api/v1/prodcut/:productId/reviews/:id
+```
+- Allowed to: admins and review owner.
+
+### Order endpoints
+
+#### Create a new cash order
+
+```curl
+POST /api/v1/orders/:cartId
+```
+- Allowed to: only users
+
+Request body example: 
+
+```json
+{
+    "alias": "alias",
+    "city": "City",
+    "details": "address details",
+    "phone": "010123456789",
+    "postal code": "1234"
+}
+```
+
+#### Get all orders
+
+```curl
+GET /api/v1/orders
+```
+- Allowed to: only admins
+
+#### GET a specific order
+
+```curl
+GET /api/v1/orders/:id
+```
+- Allowed to: only admins
+
+#### Get logged user all orders
+
+```curl
+GET /api/v1/orders
+```
+- Allowed to: users.
+
+#### GET a specific order
+
+```curl
+GET /api/v1/orders/:id
+```
+- Allowed: users
+
+#### Update order delivery status
+
+```curl
+PUT /api/v1/orders/:id
+```
+- Allowed to: only admins
+
+Request body example
+
+```json
+{
+    "isDelivered": true
+}
+```
+
+#### Update order paid status
+
+```curl
+PUT /api/v1/orders/:id
+```
+- Allowed to: only admins
+
+Request body example
+
+```json
+{
+    "isPaid": true
+}
+```
+
+#### Create an online paid order
+
+```curl
+POST /api/v1/orders/checkout-session/:cartId
+```
+- Allowed to: only users.
+
+Request body example: 
+
+```json
+{
+    "alias": "alias",
+    "city": "City",
+    "details": "address details",
+    "phone": "010123456789",
+    "postal code": "1234"
+}
+```
+
+### App settings endpoints
+
+#### Add tax and shipment price
+
+```curl
+POST /api/v1/appSetting/taxAndShipmentPrices
+```
+- Allowed to: only admins.
+
+Request body example: 
+
+```json
+{
+    "taxPrice": 15,
+    "shipmentPrice": 30
+}
+```
+
+_note that only one tax price and one shipment price can be added._
+
+#### Get tax and shipment prices
+
+```curl
+GET /api/v1/appSetting/taxAndShipmentPrices
+```
+- Allowed to: only admins.
+
+#### Update tax and shipment prices
+
+```curl
+PUT /api/v1/appSetting/taxAndShipmentPrices
+```
+- Allowed to: only admins.
+
+#### Delete tax and shipment prices
+
+```curl
+DELETE /api/v1/appSetting/taxAndShipmentPrices
+```
+- Allowed to: only admins.
