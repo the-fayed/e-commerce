@@ -503,14 +503,6 @@ Request body example:
 | password | new password |
 | passwordConfirmation | new pawword |
 
-Response body example: 
-
-```JSON
-{
-    "status": "success",
-    "message": "A verification email sent to you, please check your email."
-}
-```
 
 #### Verify email endpoint
 
@@ -518,14 +510,6 @@ Response body example:
 GET /api/v1/auth/verify/:token
 ```
 _note that an email verification will be sent to the user's email address._
-
-Response body example: 
-```JSON
-{
-    "status": "success",
-    "message": "Email verified"
-}
-```
 
 #### Log in endpoint
 
@@ -543,28 +527,191 @@ Request body example:
 }
 ```
 
-Response body example: 
+#### Fortgot password endpoint
+
+```curl
+POST /api/v1/auth/forgotPassword
+```
+- Open endpoint
+
+Request body example: 
+```json
+{
+    "email": "user@email.com"
+}
+```
+
+#### Verify password reset code password endpoint
+
+```curl
+POST /api/v1/auth/verifyResetCode
+```
+
+- Open endpoint
+
+Request body example: 
 
 ```json
 {
-    "status": "success",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZmY0ZDBkZjkzZTA1NThiMDJiZTQ2NyIsImlhdCI6MTY5NTM5Nzc1MCwiZXhwIjoxNzAzMTczNzUwfQ.UwSFauV9ryue_VAmIv5uTFcMju2LuhyKAS-dyM3kuPY",
-    "data": {
-        "wishlist": [],
-        "_id": "64ff4d0df93e0558b02be467",
-        "name": "new user",
-        "slug": "new-user",
-        "email": "user@email.com",
-        "password": "$2b$09$b4xWTNbbSvoIS/mKRFO2H.T9de5lLwUbb8CP2dfvnns6ZtGuamPu2",
-        "role": "user",
-        "emailVerified": true,
-        "createdAt": "2023-09-11T17:23:25.067Z",
-        "updatedAt": "2023-09-11T17:23:25.067Z",
-        "__v": 0,
-        "addresses": []
-    }
+    "resetCode": 123456
 }
 ```
+
+#### Reset password endpoint
+
+```curl
+POST /api/v1/auth/resetPassword
+```
+
+- Open endpoint
+
+Request body example:
+
+```json
+{
+    "email": "user@email.com",
+    "password": "new password"
+    "passwordConfirmation": "new password"
+}
+```
+
+### User endpoints
+
+#### Create new user endpoint
+
+```curl
+POST /api/v1/users
+```
+
+- Allowed to: only admins.
+- Request body type: form-data
+
+Request body example:
+
+| Key | Value |
+|----:|-------|
+| name | new admin |
+| email | admin@email.com |
+| phone | 010123456789 |
+| avatar | user image|
+| role | admin |
+| password | new password|
+| passwordConfirmation | new password |
+| emailVerified | true|
+
+
+#### Get all users
+
+```curl
+GET /api/v1/users
+```
+
+- Allowed to: only admins
+- Endpoint supports pagination by adding page and size to request query, e.g. `/users?page=1&size=20`.
+- Endpoint support field limiting by adding which fields to return in request query e.g. `/users?fields=name,image`.
+- Endpoint supports search by adding search keywords to request query, e.g. `/users?keyword=user`.
+- Endpoint supports sorting by adding a sort method to request query, e.g. `/users?sort=name`.
+
+#### Get specific user
+
+```curl
+GET /api/v1/users/:id
+```
+- Allowed to: only admins
+
+#### Update specific user
+
+```curl
+PUT /api/v1/users/:id
+```
+
+- Allowed to: only admins
+- Request body type: form-data
+
+Request body example:
+
+| Key | Value |
+|----:|-------|
+| name | updated admin |
+| email | admin@email.com |
+| phone | 010123456789 |
+| avatar | user image|
+| role | admin |
+| emailVerified | true |
+
+#### Update specific user password
+
+```curl
+PUT /api/v1/users/changePassword/:id
+```
+
+- Allowed to: only admins
+
+Request body example: 
+
+```json
+{
+    "currentPassword": "password",
+    "newPassword": "updated password",
+    "passwordConfirmation": "updated password"
+}
+```
+
+#### Delete specific user
+
+```curl
+DELETE /api/v1/users/:id
+```
+- Allowed to: only admins
+
+#### Get logged user data
+
+```curl
+GET /api/v1/users/getLoggedUser
+```
+- Allowed to: users and admins
+
+#### Updated logged user data
+
+```curl
+PUT /api/v1/user/updateLoggedUserData
+```
+- Allowed to: users and admins
+- Request body type: form-data
+
+Request body example:
+
+| Key | Value |
+|----:|-------|
+| name | admin |
+| email | user@email.com |
+| phone | 010123456789 |
+| avatar | user image|
+
+#### Update logged user password
+
+```curl
+PUT /api/v1/user/updateLoggedUserPassword
+```
+- Allowed to: users and admins
+
+Request body example: 
+
+```json
+{
+    "currentPassword": "password",
+    "newPassword": "updated password",
+    "passwordConfirmation": "updated password"
+}
+```
+
+#### Delete logged user
+
+```curl
+DELETE /api/v1/user/deleteLoggedUser
+```
+- Allowed to: users and admins
+
 
 ### categories endpoints
 
@@ -584,22 +731,6 @@ POST /api/v1/category
 |name | new category |
 |image| Category image|
 
-Response body example:
-
-```JSON
-{
-  "status": "success",
-  "data": {
-      "name": "new category",
-      "slug": "new-category",
-      "image": "https://host.domain/categories/category-1695220377744.jpeg",
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  }
-}
-```
 
 #### Get all categories:
 
@@ -614,54 +745,6 @@ GET /api/v1/categories
 - Endpoint supports search by adding search keywords to request query, e.g. `/categories?keyword=category`.
 - Endpoint supports sorting by adding a sort method to request query, e.g. `/categories?sort=name`.
 
-Response body example:
-
-```json
-{
-  "status": "success",
-  "page": 1,
-  "numberOfPages": 1,
-  "results": 4,
-  "data": [
-      {
-        "_id": "650b02996dde3fe0155a2f5a",
-        "name": "new category",
-        "slug": "new-category",
-        "image": "https://host.domain/categories/category-1695220377744.jpeg"
-        "createdAt": "2023-09-20T14:32:57.852Z",
-        "updatedAt": "2023-09-20T14:32:57.852Z",
-        "__v": 0
-      },
-      {
-        "_id": "650b02996dde3fe0155a2f5a",
-        "name": "new category",
-        "slug": "new-category",
-        "image": "https://host.domain/categories/category-1693998837911.jpeg"
-        "createdAt": "2023-09-20T14:32:57.852Z",
-        "updatedAt": "2023-09-20T14:32:57.852Z",
-        "__v": 0
-      },
-      {
-        "_id": "650b02996dde3fe0155a2f5a",
-        "name": "new category",
-        "slug": "new-category",
-        "image": "https://host.domain/categories/category-1693939557425.jpeg"
-        "createdAt": "2023-09-20T14:32:57.852Z",
-        "updatedAt": "2023-09-20T14:32:57.852Z",
-        "__v": 0
-      },
-      {
-        "_id": "650b02996dde3fe0155a2f5a",
-        "name": "new category",
-        "slug": "new-category",
-        "image": "https://host.domain/categories/category-1693855905828.jpeg"
-        "createdAt": "2023-09-20T14:32:57.852Z",
-        "updatedAt": "2023-09-20T14:32:57.852Z",
-        "__v": 0
-      }
-  ]
-}
-```
 
 #### Get a specific category:
 ```
@@ -671,22 +754,6 @@ GET /api/v1/categories/:id
 - Open endpoint.
 - No authentication is required for this endpoint call.
 
- Response body example:
-
-```JSON
-{
-  "status": "success",
-  "data": {
-      "_id": "650b02996dde3fe0155a2f5a",
-      "name": "new category",
-      "slug": "new-category",
-      "image": "https://host.domain/categories/category-1695220377744.jpeg",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  }
-}
-```
 
 #### Update specific category:
 ```
@@ -703,22 +770,6 @@ PUT /api/v1/categories/:id
 |name | Category name |
 |image| Category image|
 
-Response body example:
-
-```JSON
-{
-  "status": "success",
-  "data": {
-      "name": "updated category",
-      "slug": "updated-category",
-      "image": "https://host.domain/categories/category-1695220377744.jpeg",
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  }
-}
-```
 
 #### Delete specific category:
 ```
@@ -726,6 +777,7 @@ DELETE /api/v1/categories/:id
 ```
 
 - Allowed to: only admins.
+
 
 ### Subcategories endpoints
 
@@ -746,22 +798,6 @@ Request body example:
 }
 ```
 
-Response body example:
-
-```JSON
-{
-  "status": "success",
-  "data": {
-      "name": "new subcategory",
-      "slug": "new-subcategory",
-      "category": "650b02996dde3fe0155a2f5a",
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  }
-}
-```
 
 #### Get all subcategories:
 ```
@@ -775,54 +811,6 @@ GET /api/v1/category/:categoryId/subcategories
 - Endpoint supports search by adding search keywords to request query, e.g. `/subcategory?keyword=subcategory`.
 - Endpoint supports sorting by adding a sort method to request query, e.g. `/subcategory?sort=name`.
 
-Response body example:
-
-```json
-{
-  "status": "success",
-  "page": 1,
-  "numberOfPages": 1,
-  "results": 4,
-  "data": [
-      {
-        "_id": "650b02996dde3fe0155a2f5a",
-        "name": "new subcategory",
-        "slug": "new-subcategory",
-        "category": "650b02996dde3fe0155a2f5a"
-        "createdAt": "2023-09-20T14:32:57.852Z",
-        "updatedAt": "2023-09-20T14:32:57.852Z",
-        "__v": 0
-      },
-      {
-        "_id": "650b02996dde3fe0155a2f5a",
-        "name": "new subcategory",
-        "slug": "new-subcategory",
-        "category": "650b02996dde3fe0155a2f5a",
-        "createdAt": "2023-09-20T14:32:57.852Z",
-        "updatedAt": "2023-09-20T14:32:57.852Z",
-        "__v": 0
-      },
-      {
-        "_id": "650b02996dde3fe0155a2f5a",
-        "name": "new subcategory",
-        "slug": "new-subcategory",
-        "category": "650b02996dde3fe0155a2f5a",
-        "createdAt": "2023-09-20T14:32:57.852Z",
-        "updatedAt": "2023-09-20T14:32:57.852Z",
-        "__v": 0
-      },
-      {
-        "_id": "650b02996dde3fe0155a2f5a",
-        "name": "new subcategory",
-        "slug": "new-subcategory",
-        "category": "650b02996dde3fe0155a2f5a",
-        "createdAt": "2023-09-20T14:32:57.852Z",
-        "updatedAt": "2023-09-20T14:32:57.852Z",
-        "__v": 0
-      }
-  ]
-}
-```
  _note that to get all subcategories not the subcategories on a specific category the endpoint will be `GET /api/v1/subcategories`._
 
 #### Get a specific subcategory
@@ -833,22 +821,7 @@ GET /api/v1/subcategories/:id
 - Open endpoint.
 - No authentication is required for this endpoint call.
 
-Response body example: 
 
-```JSON
-{
-  "status": "success",
-  "data": {
-      "name": "new subcategory",
-      "slug": "new-subcategory",
-      "category": "650b02996dde3fe0155a2f5a",
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  }
-}
-```
 #### Update a specific subcategory:
 ```
 PUT /api/v1/subcategories/:id
@@ -864,21 +837,7 @@ Request body example:
 }
 ```
 
-Response body example: 
-```JSON
-{
-  "status": "success",
-  "data": {
-      "name": "updated subcategory",
-      "slug": "updated-subcategory",
-      "category": "650b02996dde3fe0155a2f5a",
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  }
-}
-```
+
 #### Delete a specific subcategory:
 ```
 DELETE /api/v1/subcategories/:id
@@ -904,22 +863,6 @@ POST /api/v1/brands
 |name | Brand name |
 |image| Brand image|
 
-Response body example:
-
-```JSON
-{
-  "status": "success",
-  "data": {
-      "name": "new brand",
-      "slug": "new-brand",
-      "image": "https://host.domain/categories/brand-1695220377744.jpeg",
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  }
-}
-```
 
 #### Get all brands:
 
@@ -934,56 +877,9 @@ GET /api/v1/brands
 - Endpoint supports search by adding search keywords to request query, e.g. `/brands?keyword=brands`.
 - Endpoint supports sorting by adding a sort method to request query, e.g. `/brands?sort=name`.
 
-Response body example:
-
-```json
-{
-  "status": "success",
-  "page": 1,
-  "numberOfPages": 1,
-  "results": 4,
-  "data": [
-      {
-        "_id": "650b02996dde3fe0155a2f5a",
-        "name": "new brand",
-        "slug": "new-brand",
-        "image": "https://host.domain/brands/brand-1695220377744.jpeg",
-        "createdAt": "2023-09-20T14:32:57.852Z",
-        "updatedAt": "2023-09-20T14:32:57.852Z",
-        "__v": 0
-      },
-      {
-        "_id": "650b02996dde3fe0155a2f5a",
-        "name": "new brand",
-        "slug": "new-brand",
-        "image": "https://host.domain/brands/brand-1693998837911.jpeg",
-        "createdAt": "2023-09-20T14:32:57.852Z",
-        "updatedAt": "2023-09-20T14:32:57.852Z",
-        "__v": 0
-      },
-      {
-        "_id": "650b02996dde3fe0155a2f5a",
-        "name": "new brand",
-        "slug": "new-brand",
-        "image": "https://host.domain/brands/brand-1693939557425.jpeg",
-        "createdAt": "2023-09-20T14:32:57.852Z",
-        "updatedAt": "2023-09-20T14:32:57.852Z",
-        "__v": 0
-      },
-      {
-        "_id": "650b02996dde3fe0155a2f5a",
-        "name": "new brand",
-        "slug": "new-brand",
-        "image": "https://host.domain/brands/brand-1693855905828.jpeg",
-        "createdAt": "2023-09-20T14:32:57.852Z",
-        "updatedAt": "2023-09-20T14:32:57.852Z",
-        "__v": 0
-      }
-  ]
-}
-```
 
 #### Get a specific brand:
+
 ```
 GET /api/v1/brand/:id
 ```
@@ -991,53 +887,26 @@ GET /api/v1/brand/:id
 - Open endpoint.
 - No authentication is required for this API call.
 
-Response body example: 
 
-```JSON
-{
-  "status": "success",
-  "data": {
-      "name": "new brand",
-      "slug": "new-brand",
-      "image": "https://host.domain/brands/brand-1693939557425.jpeg",
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  }
-}
-```
 #### Update a specific brand:
+
 ```
 PUT /api/v1/brands/:id
 ```
 
 - Allowed to: only admins
+- Request body type: form-data
   
 Request body example:
 
-```JSON
-{
-  "name": "updated brand"
-}
-```
+| Key | Value |
+|----:|-------|
+|name | Brand name |
+|image| Brand image|
 
-Response body example: 
-```JSON
-{
-  "status": "success",
-  "data": {
-      "name": "updated brand",
-      "slug": "updated-brand",
-      "image": "https://host.domain/brands/brand-1693939557425.jpeg",
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  }
-}
-```
+
 #### Delete a specific brand:
+
 ```
 DELETE /api/v1/brands/:id
 ```
@@ -1070,32 +939,6 @@ Request body example:
 | images | product image |
 | images | product image |
 
-Response body example: 
-```JSON
-{
-  "status": "success",
-  "data": {
-      "name": "new product",
-      "slug": "new-products",
-      "description": "new product description",
-      "price": 3000,
-      "priceAfterDiscount": 2500,
-      "quantity": 15,
-      "sold": 0,
-      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
-      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
-      "category": "650b02996dde3fe0155a2f5a",
-      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
-      "brand": "650b02996dde3fe0155a2f5a"
-      "ratingQuantity": 0,
-      "ratingAverage": 0
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  }
-}
-```
 
 #### Get all products: 
 
@@ -1110,97 +953,6 @@ GET /api/v1/products
 - Endpoint supports search by adding search keywords to request query, e.g. `/products?keyword=products`.
 - Endpoint supports sorting by adding a sort method to request query, e.g. `/products?sort=name`.
 
-Response body example: 
-```JSON
-{
-  "status": "success",
-  "page": 1,
-  "numberOfPages": 1,
-  "results": 4,
-  "data": [
- {
-      "name": "new product",
-      "slug": "new-products",
-      "description": "new product description",
-      "price": 3000,
-      "priceAfterDiscount": 2500,
-      "quantity": 15,
-      "sold": 0,
-      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
-      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
-      "category": "650b02996dde3fe0155a2f5a",
-      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
-      "brand": "650b02996dde3fe0155a2f5a"
-      "ratingQuantity": 0,
-      "ratingAverage": 0
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  },
-  {
-      "name": "new product",
-      "slug": "new-products",
-      "description": "new product description",
-      "price": 3000,
-      "priceAfterDiscount": 2500,
-      "quantity": 15,
-      "sold": 0,
-      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
-      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
-      "category": "650b02996dde3fe0155a2f5a",
-      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
-      "brand": "650b02996dde3fe0155a2f5a"
-      "ratingQuantity": 0,
-      "ratingAverage": 0
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  },
-  {
-      "name": "new product",
-      "slug": "new-products",
-      "description": "new product description",
-      "price": 3000,
-      "priceAfterDiscount": 2500,
-      "quantity": 15,
-      "sold": 0,
-      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
-      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
-      "category": "650b02996dde3fe0155a2f5a",
-      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
-      "brand": "650b02996dde3fe0155a2f5a"
-      "ratingQuantity": 0,
-      "ratingAverage": 0
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  },
-  {
-      "name": "new product",
-      "slug": "new-products",
-      "description": "new product description",
-      "price": 3000,
-      "priceAfterDiscount": 2500,
-      "quantity": 15,
-      "sold": 0,
-      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
-      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
-      "category": "650b02996dde3fe0155a2f5a",
-      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
-      "brand": "650b02996dde3fe0155a2f5a"
-      "ratingQuantity": 0,
-      "ratingAverage": 0
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  }
-]
-}
-```
 
 #### Get a specific product: 
 
@@ -1211,33 +963,6 @@ GET /api/v1/products/:id
 - Open endpoint.
 - No authentication is required for this endpoint call.
 
-Response body example: 
-
-```JSON
-{
-  "status": "success",
-  "data": {
-      "name": "new product",
-      "slug": "new-products",
-      "description": "new product description",
-      "price": 3000,
-      "priceAfterDiscount": 2500,
-      "quantity": 15,
-      "sold": 0,
-      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
-      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
-      "category": "650b02996dde3fe0155a2f5a",
-      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
-      "brand": "650b02996dde3fe0155a2f5a"
-      "ratingQuantity": 0,
-      "ratingAverage": 0
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  }
-}
-```
 
 #### Update a specific product
 
@@ -1263,34 +988,79 @@ Request body example:
 | images | product image |
 | images | product image |
 
-Response body example: 
-```JSON
-{
-  "status": "success",
-  "data": {
-      "name": "updated product",
-      "slug": "updated-products",
-      "description": "updated product description",
-      "price": 3000,
-      "quantity": 20,
-      "sold": 0,
-      "coveer": "https://host.domain/prodcuts/prodcut-1693939557425.jpeg",
-      "images": ["https://host.domain/prodcuts/prodcut-1693939557425.jpeg", "https://host.domain/prodcuts/prodcut-1693939557425.jpeg"],
-      "category": "650b02996dde3fe0155a2f5a",
-      "subcategories": ["650b02996dde3fe0155a2f5a", "650b02996dde3fe0155a2f5a"],
-      "brand": "650b02996dde3fe0155a2f5a"
-      "ratingQuantity": 0,
-      "ratingAverage": 0
-      "_id": "650b02996dde3fe0155a2f5a",
-      "createdAt": "2023-09-20T14:32:57.852Z",
-      "updatedAt": "2023-09-20T14:32:57.852Z",
-      "__v": 0
-  }
-}
-```
+
 #### Delete a specific product
 
 ```
 DELETE /api/v1/products/:id
 ```
 - Allowed to: only admins.
+
+### Wishlist endpoints
+
+#### Add product to wishlist
+
+```curl
+POST /api/v1/wishlist
+```
+- Allowed to: only users.
+
+Request body example: 
+
+```json
+{
+    "productId": "650b02996dde3fe0155a2f5a"
+}
+```
+
+#### Get logged user wishlist
+
+```curl
+GET /api/v1/wishlist
+```
+
+- Allowed to: only users.
+
+#### Remove product from wishlist
+
+```curl
+DELETE /api/v1/wishlist/:productId
+```
+-Allowed to: only users
+
+### Address endpoints
+
+#### Add new address to logged user
+
+```curl
+POST /api/v1/address
+```
+- Allowed to: only users
+
+Request body example: 
+
+```json
+{
+    "alias": "alias",
+    "city": "City",
+    "details": "address details",
+    "phone": "010123456789",
+    "postal code": "1234"
+}
+```
+
+#### Get logged user addresses
+
+```curl
+GET /api/v1/address
+```
+- Allowed to: only users.
+
+#### Address from logged user addresses list
+
+```curl
+DELETE /api/v1/address/:addressId
+```
+- Allowed to: only users
+
+#### Cart endPoints
