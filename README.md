@@ -64,11 +64,13 @@ The user can sign up, and after that a verification email will be sent to his in
   - Can do either cash or online orders.
   - Can add only one review for each product.
   
-3. User wishlist
-4. User cart
-5. User addresses
-6. Online orders
-7. Cash orders
+3. User wishlist.
+4. User cart.
+5. User addresses.
+6. Online orders.
+7. Cash orders.
+8. Product review and rating.
+
 
 ## Installation
 
