@@ -55,11 +55,11 @@
         - <a href = "https://github.com/the-fayed/e-commerce#updated-logged-user-data">Update logged user data endpoint</a>
         - <a href = "https://github.com/the-fayed/e-commerce#update-logged-user-password">Update logged user password end point</a>
         - <a href = "https://github.com/the-fayed/e-commerce#delete-logged-user">Delete logged user endpoint</a>
-    - <a href = "https://github.com/the-fayed/e-commerce#categories-endpoints">Categories endpoints</a> 
-        - <a href = "https://github.com/the-fayed/e-commerce#create-a-new-category">Create new category endpoint</a> 
-        - <a href = "https://github.com/the-fayed/e-commerce#get-all-categories">Get all categories endpoint</a> 
-        - <a href = "https://github.com/the-fayed/e-commerce#get-a-specific-category">Get a specific category endpoint</a> 
-        - <a href = "https://github.com/the-fayed/e-commerce#update-specific-category">Update a specific category endpoint</a> 
+    - <a href = "https://github.com/the-fayed/e-commerce#categories-endpoints">Categories endpoints</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#create-a-new-category">Create new category endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-all-categories">Get all categories endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#get-a-specific-category">Get a specific category endpoint</a>
+        - <a href = "https://github.com/the-fayed/e-commerce#update-specific-category">Update a specific category endpoint</a>
         - <a href = "https://github.com/the-fayed/e-commerce#delete-specific-category">Delete a specifc category endpoint</a>
     - <a href = "https://github.com/the-fayed/e-commerce#subcategories-endpoints">Subcategories endpoints</a>
         - <a href = "https://github.com/the-fayed/e-commerce#create-a-new-subcategory">Create a new subcategory endpoint</a>
@@ -141,12 +141,12 @@ The user can sign up, and after that a verification email will be sent to his in
 - User:
 
   - Can modify his own data _like addresses, email or phone number_.
-  - Can modify his password or reset it. 
+  - Can modify his password or reset it.
   - Can add products to his wishlist.
   - Can add items to his cart.
   - Can do either cash or online orders.
   - Can add only one review for each product.
-  
+
 3. User wishlist.
 4. User cart.
 5. User addresses.
@@ -191,6 +191,9 @@ EMAIL_PASSWORD: sender password
 # STRIPE SETTINGS
 STRIPE_API_KEY: strip the secret api key, and the public key will be sent to the front-end developer
 STRIPE_WEBHOOK_KEY: webhook secret key
+
+# CSRF
+CSRF_SECRET: create a CSRF secret key of at least 32 characters.
 
 ```
 
@@ -350,7 +353,7 @@ STRIPE_WEBHOOK_KEY: webhook secret key
   }
 ```
 
-### User schema 
+### User schema
 
 ```Javascript
   {
@@ -607,7 +610,7 @@ POST /api/v1/auth/login
 ```
 - Open endpoint.
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -623,7 +626,7 @@ POST /api/v1/auth/forgotPassword
 ```
 - Open endpoint
 
-Request body example: 
+Request body example:
 ```json
 {
     "email": "user@email.com"
@@ -638,7 +641,7 @@ POST /api/v1/auth/verifyResetCode
 
 - Open endpoint
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -736,7 +739,7 @@ PUT /api/v1/users/changePassword/:id
 
 - Allowed to: only admins
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -784,7 +787,7 @@ PUT /api/v1/user/updateLoggedUserPassword
 ```
 - Allowed to: users and admins
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -851,7 +854,7 @@ PUT /api/v1/categories/:id
 
 - Allowed to: only admins.
 - Type: form data.
-  
+
  Request body example:
 
 | Key | Value |
@@ -878,7 +881,7 @@ POST /api/v1/categories/:categoryId/subcategories
 ```
 
 - Allowed to: only admins
-  
+
 Request body example:
 
 ```JSON
@@ -917,7 +920,7 @@ PUT /api/v1/subcategories/:id
 ```
 
 - Allowed to: only admins
-  
+
 Request body example:
 
 ```JSON
@@ -985,7 +988,7 @@ PUT /api/v1/brands/:id
 
 - Allowed to: only admins
 - Request body type: form-data
-  
+
 Request body example:
 
 | Key | Value |
@@ -1004,7 +1007,7 @@ DELETE /api/v1/brands/:id
 
 ### Products endpoints
 
-#### Create a new product 
+#### Create a new product
 
 ```
 POST /api/v1/products
@@ -1012,7 +1015,7 @@ POST /api/v1/products
 - Allowed to: only admin.
 - Request body type: form-data
 
-Request body example: 
+Request body example:
 
 | Key | Value |
 |----:|-------|
@@ -1029,7 +1032,7 @@ Request body example:
 | images | product image |
 
 
-#### Get all products: 
+#### Get all products:
 
 ```
 GET /api/v1/products
@@ -1043,7 +1046,7 @@ GET /api/v1/products
 - Endpoint supports sorting by adding a sort method to request query, e.g. `/products?sort=name`.
 
 
-#### Get a specific product: 
+#### Get a specific product:
 
 ```
 GET /api/v1/products/:id
@@ -1062,7 +1065,7 @@ PUT /api/v1/products/:id
 - Allowed to: only admins.
 - Request body type: form-data.
 
-Request body example: 
+Request body example:
 
 | Key | Value |
 |----:|-------|
@@ -1094,7 +1097,7 @@ POST /api/v1/wishlist
 ```
 - Allowed to: only users.
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -1126,7 +1129,7 @@ POST /api/v1/address
 ```
 - Allowed to: only users
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -1162,7 +1165,7 @@ POST /api/v1/cart
 
 - Allowed to: only users.
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -1187,7 +1190,7 @@ PUT /api/v1/cart/:itemId
 ```
 - Allowed to: only users
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -1216,7 +1219,7 @@ POST /api/v1/cart/applyCoupon
 ```
 - Allowed to: only users
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -1235,7 +1238,7 @@ POST /api/v1/coupons
 
 - Allowed to: only admins
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -1259,7 +1262,7 @@ PUT /api/v1/coupons/:id
 ```
 - Allowed to: only admins
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -1269,7 +1272,7 @@ Request body example:
 }
 ```
 
-#### Delete a specific coupon 
+#### Delete a specific coupon
 
 ```curl
 DELETE /api/v1/coupons/:id
@@ -1287,7 +1290,7 @@ POST /api/v1/prodcut/:productId/reviews
 ```
 - Allowed to: only users.
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -1344,7 +1347,7 @@ POST /api/v1/orders/:cartId
 ```
 - Allowed to: only users
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -1421,7 +1424,7 @@ POST /api/v1/orders/checkout-session/:cartId
 ```
 - Allowed to: only users.
 
-Request body example: 
+Request body example:
 
 ```json
 {
@@ -1442,7 +1445,7 @@ POST /api/v1/appSetting/taxAndShipmentPrices
 ```
 - Allowed to: only admins.
 
-Request body example: 
+Request body example:
 
 ```json
 {
