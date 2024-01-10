@@ -22,6 +22,7 @@
     "express-async-handler": "^1.2.0",
     "express-rate-limit": "^7.1.5",
     "express-validator": "^7.0.1",
+    "hpp": "^0.2.3",
     "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.0",
