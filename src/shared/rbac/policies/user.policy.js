@@ -1,0 +1,50 @@
+const { GET_LOGGED_USER, UPDATE_LOGGED_USER, DELETE_LOGGED_USER } = require("../../../modules/users/endpoints");
+
+const { CREATE_REVIEW, UPDATE_REVIEW, DELETE_REVIEW } = require("../../../modules/reviews/endpoints");
+
+const {
+  ADD_PRODUCT_TO_WISHLIST,
+  DELETE_PRODUCT_FROM_WISHLIST,
+  GET_PRODUCTS_IN_WISHLIST,
+} = require("../../../modules/wishlists/endpoints");
+
+const { ADD_USER_ADDRESS, GET_USER_ADDRESSES, DELETE_USER_ADDRESS } = require("../../../modules/addresses/endpoints");
+
+const {
+  ADD_PRODUCT_TO_CART,
+  GET_CART,
+  REMOVE_ITEM_FORM_CART,
+  CLEAR_CART,
+  UPDATE_ITEM_QUANTITY,
+  APPLY_COUPON,
+} = require("../../../modules/carts/endpoints");
+
+const {
+  CREATE_ORDER,
+  GET_ORDERS,
+  GET_LOGGED_USER_ORDERS
+} = require("../../../modules/orders/endpoints");
+
+module.exports = [
+  GET_LOGGED_USER,
+  UPDATE_LOGGED_USER,
+  DELETE_LOGGED_USER,
+  CREATE_REVIEW,
+  UPDATE_REVIEW,
+  DELETE_REVIEW,
+  ADD_PRODUCT_TO_WISHLIST,
+  DELETE_PRODUCT_FROM_WISHLIST,
+  GET_PRODUCTS_IN_WISHLIST,
+  ADD_USER_ADDRESS,
+  GET_USER_ADDRESSES,
+  DELETE_USER_ADDRESS,
+  ADD_PRODUCT_TO_CART,
+  GET_CART,
+  UPDATE_ITEM_QUANTITY,
+  REMOVE_ITEM_FORM_CART,
+  CLEAR_CART,
+  APPLY_COUPON,
+  CREATE_ORDER,
+  GET_ORDERS,
+  GET_LOGGED_USER_ORDERS,
+];
