@@ -1,11 +1,12 @@
 const path = require(`path`);
 
+const mongoSanitize = require('express-mongo-sanitize');
+const { xss } = require('express-xss-sanitizer');
+const compression = require("compression");
 const express = require("express");
 const morgan = require(`morgan`);
 const cors = require("cors");
-const compression = require("compression");
 const hpp = require('hpp');
-const mongoSanitize = require('express-mongo-sanitize');
 
 const { unhandledRoutesHandler, globalErrorHandler } = require(`../shared/middlewares/error.handling.middleware`);
 const limiter = require('../shared/middlewares/rate-limiter.middleware');
@@ -44,6 +45,9 @@ app.use(hpp());
 
 // applying mongo sanitize middleware
 app.use(mongoSanitize());
+
+// applying xss sanitizer middleware
+app.use(xss());
 
 // logging on development mode
 if (process.env.NODE_ENV === `development`) {
