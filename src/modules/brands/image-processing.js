@@ -1,7 +1,7 @@
 const sharp = require(`sharp`);
 const asyncHandler = require(`express-async-handler`);
 
-const { uploadSingleImage } = require("../../shared/middlewares/upload.image.middleware");
+const { uploadSingleImage } = require("../../shared/middlewares/upload-image.middleware");
 
 exports.uploadBrandImage = uploadSingleImage(`image`);
 

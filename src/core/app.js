@@ -8,7 +8,7 @@ const morgan = require(`morgan`);
 const cors = require("cors");
 const hpp = require('hpp');
 
-const { unhandledRoutesHandler, globalErrorHandler } = require(`../shared/middlewares/error.handling.middleware`);
+const { unhandledRoutesHandler, globalErrorHandler } = require(`../shared/middlewares/error-handling.middleware`);
 const limiter = require('../shared/middlewares/rate-limiter.middleware');
 const DBConnection = require("./../config/db-connection");
 const { mountRoutes } = require('../modules/routes');

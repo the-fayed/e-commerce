@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const { StatusCodes } = require("http-status-codes");
 
 const TaxAndShipPrice = require("./app-settings.model");
-const ApiError = require("../../shared/utils/api.error");
+const ApiError = require("../../shared/utils/api-error");
 
 // @desc    Create tax and shipment prices
 // @route   POST /api/v1/appSetting/taxAndShipments

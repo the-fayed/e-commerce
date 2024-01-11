@@ -1,6 +1,6 @@
 const Category = require(`./categories.model`);
 
-const factory = require("./../../shared/services/code.factor");
+const factory = require("./../../shared/services/code-factor");
 
 
 // @desc   Get all categories

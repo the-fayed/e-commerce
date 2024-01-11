@@ -1,8 +1,8 @@
 const { check } = require("express-validator");
 
+const validatorMiddleware = require("../../shared/middlewares/validator.middleware");
 const Product = require("../products/products.model");
 const Coupon = require("../coupons/coupons.model");
-const validatorMiddleware = require("../../shared/middlewares/validator.middleware");
 
 exports.addProductToCartValidator = [
   check("productId")

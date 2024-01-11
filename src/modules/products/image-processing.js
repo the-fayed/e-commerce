@@ -1,7 +1,7 @@
 const sharp = require(`sharp`);
 const asyncHandler = require(`express-async-handler`);
 
-const { uploadMixedImages } = require("../../shared/middlewares/upload.image.middleware");
+const { uploadMixedImages } = require("../../shared/middlewares/upload-image.middleware");
 
 exports.uploadProductImages = uploadMixedImages([
   { name: `cover`, maxCount: 1 },
