@@ -5,6 +5,7 @@ const morgan = require(`morgan`);
 const cors = require("cors");
 const compression = require("compression");
 const hpp = require('hpp');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const { unhandledRoutesHandler, globalErrorHandler } = require(`../shared/middlewares/error.handling.middleware`);
 const limiter = require('../shared/middlewares/rate-limiter.middleware');
@@ -40,6 +41,9 @@ app.use(express.static(path.join(__dirname, `uploads`)));
 
 // applying hpp (http pollution protection)
 app.use(hpp());
+
+// applying mongo sanitize middleware
+app.use(mongoSanitize());
 
 // logging on development mode
 if (process.env.NODE_ENV === `development`) {

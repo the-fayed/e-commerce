@@ -721,6 +721,11 @@ express-async-handler@^1.2.0:
   resolved "https://registry.yarnpkg.com/express-async-handler/-/express-async-handler-1.2.0.tgz#ffc9896061d90f8d2e71a2d2b8668db5b0934391"
   integrity sha512-rCSVtPXRmQSW8rmik/AIb2P0op6l7r1fMW538yyvTMltCO4xQEWMmobfrIxN2V1/mVrgxB8Az3reYF6yUZw37w==
 
+express-mongo-sanitize@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/express-mongo-sanitize/-/express-mongo-sanitize-2.2.0.tgz#c8c2d45e137f213950f70bf586704e0db5cfe356"
+  integrity sha512-PZBs5nwhD6ek9ZuP+W2xmpvcrHwXZxD5GdieX2dsjPbAbH4azOkrHbycBud2QRU+YQF1CT+pki/lZGedHgo/dQ==
+
 express-rate-limit@^7.1.5:
   version "7.1.5"
   resolved "https://registry.yarnpkg.com/express-rate-limit/-/express-rate-limit-7.1.5.tgz#af4c81143a945ea97f2599d13957440a0ddbfcfe"
