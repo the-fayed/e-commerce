@@ -1,5 +1,5 @@
 const Review = require("./reviews.model");
-const factory = require("../../shared/services/code.factor");
+const factory = require("../../shared/services/code-factor");
 
 // setting req.filterObj to category id
 exports.settingFilterObj = (req, res, next) => {

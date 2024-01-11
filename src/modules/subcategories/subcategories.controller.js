@@ -1,6 +1,6 @@
 const Subcategory = require(`./subcategories.model`);
 
-const factory = require("../../shared/services/code.factor");
+const factory = require("../../shared/services/code-factor");
 
 // setting req.filterObj to category id
 exports.createFilterObj = (req, res, next) => {

@@ -4,8 +4,8 @@ const asyncHandler = require(`express-async-handler`);
 const { StatusCodes } = require("http-status-codes");
 const jwt = require("jsonwebtoken");
 
-const ApiFeatures = require("../utils/api.features");
-const ApiError = require("../utils/api.error");
+const ApiFeatures = require("../utils/api-features");
+const ApiError = require("../utils/api-error");
 
 exports.findAllService = (Model) => {
   return asyncHandler(async (req, res) => {

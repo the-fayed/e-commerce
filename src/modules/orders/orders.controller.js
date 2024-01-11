@@ -3,8 +3,8 @@ const { StatusCodes } = require("http-status-codes");
 const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 
 const TaxAndShipmentPrices = require("../app-settings/app-settings.model");
-const factory = require("../../shared/services/code.factor");
-const ApiError = require("../../shared/utils/api.error");
+const factory = require("../../shared/services/code-factor");
+const ApiError = require("../../shared/utils/api-error");
 const Product = require("../products/products.model");
 const User = require("../users/users.model");
 const Cart = require("../carts/carts.model");

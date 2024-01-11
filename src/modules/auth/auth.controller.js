@@ -2,12 +2,12 @@ const asyncHandler = require(`express-async-handler`);
 const { StatusCodes } = require("http-status-codes");
 const bcrypt = require("bcrypt");
 
+const emailTemplates = require("../../shared/templs/email-templates");
+const { userSanitize } = require("../../shared/utils/sanitize-data");
+const sendEmail = require("../../shared/services/send-email");
+const factory = require("../../shared/services/code-factor");
+const ApiError = require("../../shared/utils/api-error");
 const User = require(`../users/users.model`);
-const ApiError = require("../../shared/utils/api.error");
-const { generateToken } = require("../../shared/services/code.factor");
-const sendEmail = require("../../shared/services/send.email");
-const emailTemplates = require("../../shared/templs/email.templates");
-const factory = require("../../shared/services/code.factor");
 
 // @desc   Signup
 // @route  POST /api/v1/auth/signup
@@ -52,8 +52,9 @@ exports.loginHandler = asyncHandler(async (req, res, next) => {
         .json({ status: `success`, message: "A verification email sent to you, please verify your email to login" });
     }
   }
-  const token = generateToken(user.id);
-  return res.status(StatusCodes.OK).json({ status: `success`, token, data: user });
+  const sanitizedUser = userSanitize(user);
+  const token = factory.generateToken(user.id);
+  return res.status(StatusCodes.OK).json({ status: `success`, data: sanitizedUser, access_token: token });
 });
 
 // @desc   forget password

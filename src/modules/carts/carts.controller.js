@@ -1,8 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const { StatusCodes } = require("http-status-codes");
 
-const { calcTotalCartPrice } = require("../../shared/services/code.factor");
-const ApiError = require("../../shared/utils/api.error");
+const { calcTotalCartPrice } = require("../../shared/services/code-factor");
+const ApiError = require("../../shared/utils/api-error");
 const Product = require("../products/products.model");
 const Coupon = require("../coupons/coupons.model");
 const Cart = require("./carts.model");

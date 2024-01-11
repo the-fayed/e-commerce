@@ -2,8 +2,8 @@ const asyncHandler = require("express-async-handler");
 const { StatusCodes } = require("http-status-codes");
 
 const User = require(`./users.model`);
-const factory = require("../../shared/services/code.factor");
-const ApiError = require("../../shared/utils/api.error");
+const factory = require("../../shared/services/code-factor");
+const ApiError = require("../../shared/utils/api-error");
 
 // @desc   Create new user
 // @route  POST /api/v1/users

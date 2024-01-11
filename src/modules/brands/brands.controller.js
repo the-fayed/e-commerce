@@ -1,6 +1,6 @@
 const Brand = require(`./brands.model`);
 
-const factory = require("../../shared/services/code.factor");
+const factory = require("../../shared/services/code-factor");
 
 // @desc   Get all brands
 // @route  GET /api/v1/brands

@@ -2,7 +2,7 @@ const asyncHandler = require(`express-async-handler`);
 const { StatusCodes } = require(`http-status-codes`);
 const jwt = require(`jsonwebtoken`);
 
-const ApiError = require(`../utils/api.error`);
+const ApiError = require(`../utils/api-error`);
 const User = require('../../modules/users/users.model');
 const rbac = require('../rbac/rbac');
 

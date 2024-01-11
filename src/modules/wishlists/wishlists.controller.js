@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const { StatusCodes } = require("http-status-codes");
 
 const User = require("../users/users.model");
-const ApiError = require("../../shared/utils/api.error");
+const ApiError = require("../../shared/utils/api-error");
 
 // @desc    Add product to wishlist
 // @route   POST /api/v1/wishlist

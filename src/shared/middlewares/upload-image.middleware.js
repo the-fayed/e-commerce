@@ -1,7 +1,7 @@
 const multer = require(`multer`);
 const { StatusCodes } = require('http-status-codes');
 
-const ApiError = require('../utils/api.error');
+const ApiError = require('../utils/api-error');
 
 const multerOpt = () => {
     const storage = multer.memoryStorage();

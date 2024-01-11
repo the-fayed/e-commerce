@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 
-const ApiError = require("../utils/api.error");
+const ApiError = require("../utils/api-error");
 
 exports.unhandledRoutesHandler = (req, res, next) => {
   next(new ApiError(`Route ${req.originalUrl} is not found`), StatusCodes.BAD_REQUEST);

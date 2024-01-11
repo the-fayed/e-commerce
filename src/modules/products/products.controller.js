@@ -1,6 +1,6 @@
 const Product = require(`./products.model`);
 
-const factory = require("../../shared/services/code.factor");
+const factory = require("../../shared/services/code-factor");
 
 // @desc   Get all products
 // @route  GET api/v1/products
